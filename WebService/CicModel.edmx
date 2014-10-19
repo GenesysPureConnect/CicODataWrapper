@@ -1,0 +1,290 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="CicDBModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="CicDBModelStoreContainer">
+          <EntitySet Name="InteractionSegmentDetail" EntityType="CicDBModel.Store.InteractionSegmentDetail" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="InteractionSummary" EntityType="CicDBModel.Store.InteractionSummary" store:Type="Tables" Schema="dbo" />
+        </EntityContainer>
+        <EntityType Name="InteractionSegmentDetail">
+          <Key>
+            <PropertyRef Name="InteractionIDKey" />
+            <PropertyRef Name="SiteID" />
+            <PropertyRef Name="SeqNo" />
+          </Key>
+          <Property Name="InteractionIDKey" Type="char" Nullable="false" MaxLength="18" />
+          <Property Name="SiteID" Type="smallint" Nullable="false" />
+          <Property Name="SeqNo" Type="tinyint" Nullable="false" />
+          <Property Name="StartDateTimeUTC" Type="datetime2" Nullable="false" Precision="3" />
+          <Property Name="StartDTOffset" Type="int" Nullable="false" />
+          <Property Name="ConversationID" Type="varchar" MaxLength="24" />
+          <Property Name="SegmentLog" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="InteractionSummary">
+          <Key>
+            <PropertyRef Name="InteractionIDKey" />
+            <PropertyRef Name="SiteID" />
+            <PropertyRef Name="SeqNo" />
+          </Key>
+          <Property Name="InteractionIDKey" Type="char" Nullable="false" MaxLength="18" />
+          <Property Name="SiteID" Type="smallint" Nullable="false" />
+          <Property Name="SeqNo" Type="tinyint" Nullable="false" />
+          <Property Name="InteractionID" Type="bigint" Nullable="false" />
+          <Property Name="StartDateTimeUTC" Type="datetime2" Nullable="false" Precision="3" />
+          <Property Name="StartDTOffset" Type="int" Nullable="false" />
+          <Property Name="Direction" Type="tinyint" Nullable="false" />
+          <Property Name="ConnectionType" Type="tinyint" Nullable="false" />
+          <Property Name="MediaType" Type="tinyint" Nullable="false" />
+          <Property Name="RemoteID" Type="nvarchar" MaxLength="50" />
+          <Property Name="DNIS_LocalID" Type="nvarchar" MaxLength="50" />
+          <Property Name="tDialing" Type="int" />
+          <Property Name="tIVRWait" Type="int" />
+          <Property Name="tQueueWait" Type="numeric" Precision="19" />
+          <Property Name="tAlert" Type="int" />
+          <Property Name="tConnected" Type="numeric" Precision="19" />
+          <Property Name="tHeld" Type="numeric" Precision="19" />
+          <Property Name="tSuspend" Type="numeric" Precision="19" />
+          <Property Name="tConference" Type="numeric" Precision="19" />
+          <Property Name="tExternal" Type="numeric" Precision="19" />
+          <Property Name="tACW" Type="int" />
+          <Property Name="nIVR" Type="smallint" />
+          <Property Name="nQueueWait" Type="smallint" />
+          <Property Name="nTalk" Type="smallint" />
+          <Property Name="nConference" Type="smallint" />
+          <Property Name="nHeld" Type="smallint" />
+          <Property Name="nTransfer" Type="smallint" />
+          <Property Name="nExternal" Type="smallint" />
+          <Property Name="Disposition" Type="tinyint" Nullable="false" />
+          <Property Name="DispositionCode" Type="tinyint" />
+          <Property Name="WrapUpCode" Type="nvarchar" MaxLength="200" />
+          <Property Name="AccountCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsRecorded" Type="bit" Nullable="false" />
+          <Property Name="IsSurveyed" Type="bit" Nullable="false" />
+          <Property Name="MediaServerID" Type="nvarchar" MaxLength="100" />
+          <Property Name="IndivID" Type="char" MaxLength="22" />
+          <Property Name="OrgID" Type="char" MaxLength="22" />
+          <Property Name="LineId" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastStationId" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastLocalUserId" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastAssignedWorkgroupID" Type="nvarchar" MaxLength="100" />
+          <Property Name="LastLocalNumber" Type="varchar" MaxLength="200" />
+          <Property Name="LastLocalName" Type="nvarchar" MaxLength="50" />
+          <Property Name="RemoteICUserID" Type="nvarchar" MaxLength="50" />
+          <Property Name="RemoteNumberCountry" Type="smallint" />
+          <Property Name="RemoteNumberLoComp1" Type="varchar" MaxLength="10" />
+          <Property Name="RemoteNumberLoComp2" Type="varchar" MaxLength="10" />
+          <Property Name="RemoteNumberFmt" Type="varchar" MaxLength="50" />
+          <Property Name="RemoteNumberCallId" Type="varchar" MaxLength="50" />
+          <Property Name="RemoteName" Type="nvarchar" MaxLength="50" />
+          <Property Name="InitiatedDateTimeUTC" Type="datetime2" Nullable="false" Precision="3" />
+          <Property Name="ConnectedDateTimeUTC" Type="datetime2" Nullable="false" Precision="3" />
+          <Property Name="TerminatedDateTimeUTC" Type="datetime2" Nullable="false" Precision="3" />
+          <Property Name="LineDuration" Type="numeric" Precision="19" />
+          <Property Name="CallEventLog" Type="nvarchar" Nullable="false" MaxLength="2000" />
+          <Property Name="PurposeCode" Type="int" />
+          <Property Name="CallNote" Type="nvarchar" MaxLength="1024" />
+          <Property Name="nSecuredIVR" Type="smallint" Nullable="false" />
+          <Property Name="tSecuredIVR" Type="numeric" Precision="19" />
+          <Property Name="FirstAssignedAcdSkillSet" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CicDBModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="CicDBEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="InteractionSegmentDetail" EntityType="CicDBModel.InteractionSegmentDetail" />
+          <EntitySet Name="InteractionSummary" EntityType="CicDBModel.InteractionSummary" />
+        </EntityContainer>
+        <EntityType Name="InteractionSegmentDetail">
+          <Key>
+            <PropertyRef Name="InteractionIDKey" />
+            <PropertyRef Name="SiteID" />
+            <PropertyRef Name="SeqNo" />
+          </Key>
+          <Property Name="InteractionIDKey" Type="String" Nullable="false" MaxLength="18" Unicode="false" FixedLength="true" />
+          <Property Name="SiteID" Type="Int16" Nullable="false" />
+          <Property Name="SeqNo" Type="Byte" Nullable="false" />
+          <Property Name="StartDateTimeUTC" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="StartDTOffset" Type="Int32" Nullable="false" />
+          <Property Name="ConversationID" Type="String" MaxLength="24" Unicode="false" FixedLength="false" />
+          <Property Name="SegmentLog" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="InteractionSummary">
+          <Key>
+            <PropertyRef Name="InteractionIDKey" />
+            <PropertyRef Name="SiteID" />
+            <PropertyRef Name="SeqNo" />
+          </Key>
+          <Property Name="InteractionIDKey" Type="String" Nullable="false" MaxLength="18" Unicode="false" FixedLength="true" />
+          <Property Name="SiteID" Type="Int16" Nullable="false" />
+          <Property Name="SeqNo" Type="Byte" Nullable="false" />
+          <Property Name="InteractionID" Type="Int64" Nullable="false" />
+          <Property Name="StartDateTimeUTC" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="StartDTOffset" Type="Int32" Nullable="false" />
+          <Property Name="Direction" Type="Byte" Nullable="false" />
+          <Property Name="ConnectionType" Type="Byte" Nullable="false" />
+          <Property Name="MediaType" Type="Byte" Nullable="false" />
+          <Property Name="RemoteID" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="DNIS_LocalID" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="tDialing" Type="Int32" />
+          <Property Name="tIVRWait" Type="Int32" />
+          <Property Name="tQueueWait" Type="Decimal" Precision="19" Scale="0" />
+          <Property Name="tAlert" Type="Int32" />
+          <Property Name="tConnected" Type="Decimal" Precision="19" Scale="0" />
+          <Property Name="tHeld" Type="Decimal" Precision="19" Scale="0" />
+          <Property Name="tSuspend" Type="Decimal" Precision="19" Scale="0" />
+          <Property Name="tConference" Type="Decimal" Precision="19" Scale="0" />
+          <Property Name="tExternal" Type="Decimal" Precision="19" Scale="0" />
+          <Property Name="tACW" Type="Int32" />
+          <Property Name="nIVR" Type="Int16" />
+          <Property Name="nQueueWait" Type="Int16" />
+          <Property Name="nTalk" Type="Int16" />
+          <Property Name="nConference" Type="Int16" />
+          <Property Name="nHeld" Type="Int16" />
+          <Property Name="nTransfer" Type="Int16" />
+          <Property Name="nExternal" Type="Int16" />
+          <Property Name="Disposition" Type="Byte" Nullable="false" />
+          <Property Name="DispositionCode" Type="Byte" />
+          <Property Name="WrapUpCode" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
+          <Property Name="AccountCode" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="IsRecorded" Type="Boolean" Nullable="false" />
+          <Property Name="IsSurveyed" Type="Boolean" Nullable="false" />
+          <Property Name="MediaServerID" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="IndivID" Type="String" MaxLength="22" Unicode="false" FixedLength="true" />
+          <Property Name="OrgID" Type="String" MaxLength="22" Unicode="false" FixedLength="true" />
+          <Property Name="LineId" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="LastStationId" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="LastLocalUserId" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="LastAssignedWorkgroupID" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="LastLocalNumber" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
+          <Property Name="LastLocalName" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="RemoteICUserID" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="RemoteNumberCountry" Type="Int16" />
+          <Property Name="RemoteNumberLoComp1" Type="String" MaxLength="10" Unicode="false" FixedLength="false" />
+          <Property Name="RemoteNumberLoComp2" Type="String" MaxLength="10" Unicode="false" FixedLength="false" />
+          <Property Name="RemoteNumberFmt" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="RemoteNumberCallId" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="RemoteName" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="InitiatedDateTimeUTC" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ConnectedDateTimeUTC" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="TerminatedDateTimeUTC" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LineDuration" Type="Decimal" Precision="19" Scale="0" />
+          <Property Name="CallEventLog" Type="String" Nullable="false" MaxLength="2000" Unicode="true" FixedLength="false" />
+          <Property Name="PurposeCode" Type="Int32" />
+          <Property Name="CallNote" Type="String" MaxLength="1024" Unicode="true" FixedLength="false" />
+          <Property Name="nSecuredIVR" Type="Int16" Nullable="false" />
+          <Property Name="tSecuredIVR" Type="Decimal" Precision="19" Scale="0" />
+          <Property Name="FirstAssignedAcdSkillSet" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CicDBModelStoreContainer" CdmEntityContainer="CicDBEntities">
+          <EntitySetMapping Name="InteractionSegmentDetail">
+            <EntityTypeMapping TypeName="CicDBModel.InteractionSegmentDetail">
+              <MappingFragment StoreEntitySet="InteractionSegmentDetail">
+                <ScalarProperty Name="InteractionIDKey" ColumnName="InteractionIDKey" />
+                <ScalarProperty Name="SiteID" ColumnName="SiteID" />
+                <ScalarProperty Name="SeqNo" ColumnName="SeqNo" />
+                <ScalarProperty Name="StartDateTimeUTC" ColumnName="StartDateTimeUTC" />
+                <ScalarProperty Name="StartDTOffset" ColumnName="StartDTOffset" />
+                <ScalarProperty Name="ConversationID" ColumnName="ConversationID" />
+                <ScalarProperty Name="SegmentLog" ColumnName="SegmentLog" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InteractionSummary">
+            <EntityTypeMapping TypeName="CicDBModel.InteractionSummary">
+              <MappingFragment StoreEntitySet="InteractionSummary">
+                <ScalarProperty Name="InteractionIDKey" ColumnName="InteractionIDKey" />
+                <ScalarProperty Name="SiteID" ColumnName="SiteID" />
+                <ScalarProperty Name="SeqNo" ColumnName="SeqNo" />
+                <ScalarProperty Name="InteractionID" ColumnName="InteractionID" />
+                <ScalarProperty Name="StartDateTimeUTC" ColumnName="StartDateTimeUTC" />
+                <ScalarProperty Name="StartDTOffset" ColumnName="StartDTOffset" />
+                <ScalarProperty Name="Direction" ColumnName="Direction" />
+                <ScalarProperty Name="ConnectionType" ColumnName="ConnectionType" />
+                <ScalarProperty Name="MediaType" ColumnName="MediaType" />
+                <ScalarProperty Name="RemoteID" ColumnName="RemoteID" />
+                <ScalarProperty Name="DNIS_LocalID" ColumnName="DNIS_LocalID" />
+                <ScalarProperty Name="tDialing" ColumnName="tDialing" />
+                <ScalarProperty Name="tIVRWait" ColumnName="tIVRWait" />
+                <ScalarProperty Name="tQueueWait" ColumnName="tQueueWait" />
+                <ScalarProperty Name="tAlert" ColumnName="tAlert" />
+                <ScalarProperty Name="tConnected" ColumnName="tConnected" />
+                <ScalarProperty Name="tHeld" ColumnName="tHeld" />
+                <ScalarProperty Name="tSuspend" ColumnName="tSuspend" />
+                <ScalarProperty Name="tConference" ColumnName="tConference" />
+                <ScalarProperty Name="tExternal" ColumnName="tExternal" />
+                <ScalarProperty Name="tACW" ColumnName="tACW" />
+                <ScalarProperty Name="nIVR" ColumnName="nIVR" />
+                <ScalarProperty Name="nQueueWait" ColumnName="nQueueWait" />
+                <ScalarProperty Name="nTalk" ColumnName="nTalk" />
+                <ScalarProperty Name="nConference" ColumnName="nConference" />
+                <ScalarProperty Name="nHeld" ColumnName="nHeld" />
+                <ScalarProperty Name="nTransfer" ColumnName="nTransfer" />
+                <ScalarProperty Name="nExternal" ColumnName="nExternal" />
+                <ScalarProperty Name="Disposition" ColumnName="Disposition" />
+                <ScalarProperty Name="DispositionCode" ColumnName="DispositionCode" />
+                <ScalarProperty Name="WrapUpCode" ColumnName="WrapUpCode" />
+                <ScalarProperty Name="AccountCode" ColumnName="AccountCode" />
+                <ScalarProperty Name="IsRecorded" ColumnName="IsRecorded" />
+                <ScalarProperty Name="IsSurveyed" ColumnName="IsSurveyed" />
+                <ScalarProperty Name="MediaServerID" ColumnName="MediaServerID" />
+                <ScalarProperty Name="IndivID" ColumnName="IndivID" />
+                <ScalarProperty Name="OrgID" ColumnName="OrgID" />
+                <ScalarProperty Name="LineId" ColumnName="LineId" />
+                <ScalarProperty Name="LastStationId" ColumnName="LastStationId" />
+                <ScalarProperty Name="LastLocalUserId" ColumnName="LastLocalUserId" />
+                <ScalarProperty Name="LastAssignedWorkgroupID" ColumnName="LastAssignedWorkgroupID" />
+                <ScalarProperty Name="LastLocalNumber" ColumnName="LastLocalNumber" />
+                <ScalarProperty Name="LastLocalName" ColumnName="LastLocalName" />
+                <ScalarProperty Name="RemoteICUserID" ColumnName="RemoteICUserID" />
+                <ScalarProperty Name="RemoteNumberCountry" ColumnName="RemoteNumberCountry" />
+                <ScalarProperty Name="RemoteNumberLoComp1" ColumnName="RemoteNumberLoComp1" />
+                <ScalarProperty Name="RemoteNumberLoComp2" ColumnName="RemoteNumberLoComp2" />
+                <ScalarProperty Name="RemoteNumberFmt" ColumnName="RemoteNumberFmt" />
+                <ScalarProperty Name="RemoteNumberCallId" ColumnName="RemoteNumberCallId" />
+                <ScalarProperty Name="RemoteName" ColumnName="RemoteName" />
+                <ScalarProperty Name="InitiatedDateTimeUTC" ColumnName="InitiatedDateTimeUTC" />
+                <ScalarProperty Name="ConnectedDateTimeUTC" ColumnName="ConnectedDateTimeUTC" />
+                <ScalarProperty Name="TerminatedDateTimeUTC" ColumnName="TerminatedDateTimeUTC" />
+                <ScalarProperty Name="LineDuration" ColumnName="LineDuration" />
+                <ScalarProperty Name="CallEventLog" ColumnName="CallEventLog" />
+                <ScalarProperty Name="PurposeCode" ColumnName="PurposeCode" />
+                <ScalarProperty Name="CallNote" ColumnName="CallNote" />
+                <ScalarProperty Name="nSecuredIVR" ColumnName="nSecuredIVR" />
+                <ScalarProperty Name="tSecuredIVR" ColumnName="tSecuredIVR" />
+                <ScalarProperty Name="FirstAssignedAcdSkillSet" ColumnName="FirstAssignedAcdSkillSet" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
