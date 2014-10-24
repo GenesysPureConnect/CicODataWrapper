@@ -27,5 +27,10 @@ namespace CicOData
     
         public DbSet<InteractionSegmentDetail> InteractionSegmentDetail { get; set; }
         public DbSet<InteractionSummary> InteractionSummary { get; set; }
+        public DbSet<AgentStat> AgentStats { get; set; }
+        public DbSet<CallHistory> CallHistories { get; set; }
+        public DbSet<CampaignStat> CampaignStats { get; set; }
+        public DbSet<IAgentQueueStats> IAgentQueueStats { get; set; }
+        public DbSet<IWrkgrpQueueStats> IWrkgrpQueueStats { get; set; }
     }
 }

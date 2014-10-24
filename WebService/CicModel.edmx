@@ -4,21 +4,17 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="CicDBModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityContainer Name="CicDBModelStoreContainer">
-          <EntitySet Name="InteractionSegmentDetail" EntityType="CicDBModel.Store.InteractionSegmentDetail" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="InteractionSummary" EntityType="CicDBModel.Store.InteractionSummary" store:Type="Tables" Schema="dbo" />
-        </EntityContainer>
+    <Schema Namespace="CicDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="InteractionSegmentDetail">
           <Key>
             <PropertyRef Name="InteractionIDKey" />
             <PropertyRef Name="SiteID" />
             <PropertyRef Name="SeqNo" />
           </Key>
-          <Property Name="InteractionIDKey" Type="char" Nullable="false" MaxLength="18" />
+          <Property Name="InteractionIDKey" Type="char" MaxLength="18" Nullable="false" />
           <Property Name="SiteID" Type="smallint" Nullable="false" />
           <Property Name="SeqNo" Type="tinyint" Nullable="false" />
-          <Property Name="StartDateTimeUTC" Type="datetime2" Nullable="false" Precision="3" />
+          <Property Name="StartDateTimeUTC" Type="datetime2" Precision="3" Nullable="false" />
           <Property Name="StartDTOffset" Type="int" Nullable="false" />
           <Property Name="ConversationID" Type="varchar" MaxLength="24" />
           <Property Name="SegmentLog" Type="nvarchar(max)" Nullable="false" />
@@ -29,11 +25,11 @@
             <PropertyRef Name="SiteID" />
             <PropertyRef Name="SeqNo" />
           </Key>
-          <Property Name="InteractionIDKey" Type="char" Nullable="false" MaxLength="18" />
+          <Property Name="InteractionIDKey" Type="char" MaxLength="18" Nullable="false" />
           <Property Name="SiteID" Type="smallint" Nullable="false" />
           <Property Name="SeqNo" Type="tinyint" Nullable="false" />
           <Property Name="InteractionID" Type="bigint" Nullable="false" />
-          <Property Name="StartDateTimeUTC" Type="datetime2" Nullable="false" Precision="3" />
+          <Property Name="StartDateTimeUTC" Type="datetime2" Precision="3" Nullable="false" />
           <Property Name="StartDTOffset" Type="int" Nullable="false" />
           <Property Name="Direction" Type="tinyint" Nullable="false" />
           <Property Name="ConnectionType" Type="tinyint" Nullable="false" />
@@ -42,13 +38,13 @@
           <Property Name="DNIS_LocalID" Type="nvarchar" MaxLength="50" />
           <Property Name="tDialing" Type="int" />
           <Property Name="tIVRWait" Type="int" />
-          <Property Name="tQueueWait" Type="numeric" Precision="19" />
+          <Property Name="tQueueWait" Type="numeric" Precision="19" Scale="0" />
           <Property Name="tAlert" Type="int" />
-          <Property Name="tConnected" Type="numeric" Precision="19" />
-          <Property Name="tHeld" Type="numeric" Precision="19" />
-          <Property Name="tSuspend" Type="numeric" Precision="19" />
-          <Property Name="tConference" Type="numeric" Precision="19" />
-          <Property Name="tExternal" Type="numeric" Precision="19" />
+          <Property Name="tConnected" Type="numeric" Precision="19" Scale="0" />
+          <Property Name="tHeld" Type="numeric" Precision="19" Scale="0" />
+          <Property Name="tSuspend" Type="numeric" Precision="19" Scale="0" />
+          <Property Name="tConference" Type="numeric" Precision="19" Scale="0" />
+          <Property Name="tExternal" Type="numeric" Precision="19" Scale="0" />
           <Property Name="tACW" Type="int" />
           <Property Name="nIVR" Type="smallint" />
           <Property Name="nQueueWait" Type="smallint" />
@@ -79,25 +75,743 @@
           <Property Name="RemoteNumberFmt" Type="varchar" MaxLength="50" />
           <Property Name="RemoteNumberCallId" Type="varchar" MaxLength="50" />
           <Property Name="RemoteName" Type="nvarchar" MaxLength="50" />
-          <Property Name="InitiatedDateTimeUTC" Type="datetime2" Nullable="false" Precision="3" />
-          <Property Name="ConnectedDateTimeUTC" Type="datetime2" Nullable="false" Precision="3" />
-          <Property Name="TerminatedDateTimeUTC" Type="datetime2" Nullable="false" Precision="3" />
-          <Property Name="LineDuration" Type="numeric" Precision="19" />
-          <Property Name="CallEventLog" Type="nvarchar" Nullable="false" MaxLength="2000" />
+          <Property Name="InitiatedDateTimeUTC" Type="datetime2" Precision="3" Nullable="false" />
+          <Property Name="ConnectedDateTimeUTC" Type="datetime2" Precision="3" Nullable="false" />
+          <Property Name="TerminatedDateTimeUTC" Type="datetime2" Precision="3" Nullable="false" />
+          <Property Name="LineDuration" Type="numeric" Precision="19" Scale="0" />
+          <Property Name="CallEventLog" Type="nvarchar" MaxLength="2000" Nullable="false" />
           <Property Name="PurposeCode" Type="int" />
           <Property Name="CallNote" Type="nvarchar" MaxLength="1024" />
           <Property Name="nSecuredIVR" Type="smallint" Nullable="false" />
-          <Property Name="tSecuredIVR" Type="numeric" Precision="19" />
+          <Property Name="tSecuredIVR" Type="numeric" Precision="19" Scale="0" />
           <Property Name="FirstAssignedAcdSkillSet" Type="nvarchar" MaxLength="100" />
         </EntityType>
-      </Schema>
-    </edmx:StorageModels>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'SIM4CDB.ININ_DIALER_40.AgentStats' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="AgentStats">
+          <Key>
+            <PropertyRef Name="siteid" />
+            <PropertyRef Name="odsoffset" />
+            <PropertyRef Name="agenttimeUTC" />
+            <PropertyRef Name="agentid" />
+            <PropertyRef Name="propertyname" />
+          </Key>
+          <Property Name="campaignname" Type="varchar" MaxLength="255" />
+          <Property Name="siteid" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="odsoffset" Type="int" Nullable="false" />
+          <Property Name="agenttimeUTC" Type="datetime" Nullable="false" />
+          <Property Name="agentid" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="stageid" Type="varchar" MaxLength="10" />
+          <Property Name="callid" Type="varchar" MaxLength="11" />
+          <Property Name="callidkey" Type="varchar" MaxLength="18" />
+          <Property Name="propertyname" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="propertyvalue" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'SIM4CDB.ININ_DIALER_40.CallHistory' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="CallHistory">
+          <Key>
+            <PropertyRef Name="campaignname" />
+            <PropertyRef Name="siteid" />
+            <PropertyRef Name="wrapupcategory" />
+            <PropertyRef Name="wrapupcode" />
+            <PropertyRef Name="odsoffset" />
+            <PropertyRef Name="calldisconnectedtimeUTC" />
+          </Key>
+          <Property Name="campaignname" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="siteid" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="i3_identity" Type="bigint" />
+          <Property Name="i3_rowid" Type="varchar" MaxLength="80" />
+          <Property Name="callid" Type="char" MaxLength="11" />
+          <Property Name="callidkey" Type="char" MaxLength="18" />
+          <Property Name="wrapupcategory" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="wrapupcode" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="callingmode" Type="tinyint" />
+          <Property Name="phonenumber" Type="varchar" MaxLength="50" />
+          <Property Name="phonenumbertype" Type="varchar" MaxLength="80" />
+          <Property Name="agentid" Type="varchar" MaxLength="80" />
+          <Property Name="calledpartyoffset" Type="int" />
+          <Property Name="odsoffset" Type="int" Nullable="false" />
+          <Property Name="previewpoptimeUTC" Type="datetime" />
+          <Property Name="callplacedtimeUTC" Type="datetime" />
+          <Property Name="callansweredtimeUTC" Type="datetime" />
+          <Property Name="messageplaytimeUTC" Type="datetime" />
+          <Property Name="callconnectedtimeUTC" Type="datetime" />
+          <Property Name="calldisconnectedtimeUTC" Type="datetime" Nullable="false" />
+          <Property Name="length" Type="int" />
+          <Property Name="caresult" Type="tinyint" />
+          <Property Name="cadetail" Type="varchar" MaxLength="255" />
+          <Property Name="isabandoned" Type="bit" />
+          <Property Name="iscontact" Type="bit" />
+          <Property Name="isdetect" Type="bit" />
+          <Property Name="isrpc" Type="bit" />
+          <Property Name="issuccess" Type="bit" />
+          <Property Name="successresult" Type="float" />
+          <Property Name="customdata1" Type="varchar" MaxLength="255" />
+          <Property Name="customdata2" Type="varchar" MaxLength="255" />
+          <Property Name="campaignfilterid" Type="smallint" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'SIM4CDB.ININ_DIALER_40.CampaignStats' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="CampaignStats">
+          <Key>
+            <PropertyRef Name="periodstarttimeUTC" />
+            <PropertyRef Name="periodendtimeUTC" />
+            <PropertyRef Name="odsoffset" />
+            <PropertyRef Name="campaignname" />
+            <PropertyRef Name="siteid" />
+            <PropertyRef Name="campaignstate" />
+            <PropertyRef Name="dialingmode" />
+            <PropertyRef Name="filtersize" />
+            <PropertyRef Name="recyclesize" />
+            <PropertyRef Name="totalagents" />
+            <PropertyRef Name="effectivetotalagents" />
+            <PropertyRef Name="idleagents" />
+            <PropertyRef Name="effectiveidleagents" />
+            <PropertyRef Name="nondialeragents" />
+            <PropertyRef Name="dndagents" />
+            <PropertyRef Name="totaldialercalls" />
+            <PropertyRef Name="priority" />
+          </Key>
+          <Property Name="periodstarttimeUTC" Type="datetime" Nullable="false" />
+          <Property Name="periodendtimeUTC" Type="datetime" Nullable="false" />
+          <Property Name="odsoffset" Type="int" Nullable="false" />
+          <Property Name="campaignname" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="siteid" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="event" Type="varchar" MaxLength="20" />
+          <Property Name="campaignstate" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="dialingmode" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="filtersize" Type="int" Nullable="false" />
+          <Property Name="recyclesize" Type="int" Nullable="false" />
+          <Property Name="totalagents" Type="int" Nullable="false" />
+          <Property Name="effectivetotalagents" Type="float" Nullable="false" />
+          <Property Name="idleagents" Type="int" Nullable="false" />
+          <Property Name="effectiveidleagents" Type="float" Nullable="false" />
+          <Property Name="nondialeragents" Type="int" Nullable="false" />
+          <Property Name="dndagents" Type="int" Nullable="false" />
+          <Property Name="totaldialercalls" Type="int" Nullable="false" />
+          <Property Name="pace" Type="int" />
+          <Property Name="cpa" Type="float" />
+          <Property Name="adjcpa" Type="float" />
+          <Property Name="abandonrate" Type="float" />
+          <Property Name="priority" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'SIM4CDB.dbo.IAgentQueueStats' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="IAgentQueueStats">
+          <Key>
+            <PropertyRef Name="StatisticsSet" />
+            <PropertyRef Name="cName" />
+            <PropertyRef Name="cReportGroup" />
+            <PropertyRef Name="cHKey3" />
+            <PropertyRef Name="cHKey4" />
+            <PropertyRef Name="cType" />
+            <PropertyRef Name="dIntervalStart" />
+            <PropertyRef Name="nDuration" />
+            <PropertyRef Name="SiteId" />
+            <PropertyRef Name="SubSiteId" />
+            <PropertyRef Name="I3TimeStampGMT" />
+            <PropertyRef Name="DimensionSet" />
+            <PropertyRef Name="ConfigurationSet" />
+            <PropertyRef Name="nServiceLevel" />
+            <PropertyRef Name="SchemaMajorVersion" />
+            <PropertyRef Name="SchemaMinorVersion" />
+          </Key>
+          <Property Name="StatisticsSet" Type="int" Nullable="false" />
+          <Property Name="cName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="cReportGroup" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="cHKey3" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="cHKey4" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="cType" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="dIntervalStart" Type="datetime" Nullable="false" />
+          <Property Name="dIntervalStartUTC" Type="datetime" />
+          <Property Name="nDuration" Type="int" Nullable="false" />
+          <Property Name="nEnteredAcd" Type="int" />
+          <Property Name="nAbandonedAcd" Type="int" />
+          <Property Name="nGrabbedAcd" Type="int" />
+          <Property Name="nLocalDisconnectAcd" Type="int" />
+          <Property Name="nLocalDisconnectAgentAlertAcd" Type="int" />
+          <Property Name="nLocalDisconnectAgentAcd" Type="int" />
+          <Property Name="nAlertedAcd" Type="int" />
+          <Property Name="nAnsweredAcd" Type="int" />
+          <Property Name="nAnswered" Type="int" />
+          <Property Name="nAcdSvcLvl" Type="int" />
+          <Property Name="nAnsweredAcdSvcLvl" Type="int" />
+          <Property Name="nAnsweredAcdSvcLvl1" Type="int" />
+          <Property Name="nAnsweredAcdSvcLvl2" Type="int" />
+          <Property Name="nAnsweredAcdSvcLvl3" Type="int" />
+          <Property Name="nAnsweredAcdSvcLvl4" Type="int" />
+          <Property Name="nAnsweredAcdSvcLvl5" Type="int" />
+          <Property Name="nAnsweredAcdSvcLvl6" Type="int" />
+          <Property Name="nAbandonAcdSvcLvl" Type="int" />
+          <Property Name="nAbandonAcdSvcLvl1" Type="int" />
+          <Property Name="nAbandonAcdSvcLvl2" Type="int" />
+          <Property Name="nAbandonAcdSvcLvl3" Type="int" />
+          <Property Name="nAbandonAcdSvcLvl4" Type="int" />
+          <Property Name="nAbandonAcdSvcLvl5" Type="int" />
+          <Property Name="nAbandonAcdSvcLvl6" Type="int" />
+          <Property Name="tGrabbedAcd" Type="int" />
+          <Property Name="tAnsweredAcd" Type="int" />
+          <Property Name="mtAnsweredAcd" Type="int" />
+          <Property Name="tAbandonedAcd" Type="int" />
+          <Property Name="tTalkAcd" Type="int" />
+          <Property Name="tTalkCompleteAcd" Type="int" />
+          <Property Name="nHoldAcd" Type="int" />
+          <Property Name="tHoldAcd" Type="int" />
+          <Property Name="nSuspendedAcd" Type="int" />
+          <Property Name="tSuspendedAcd" Type="int" />
+          <Property Name="nHeldSpanAcd" Type="int" />
+          <Property Name="nAcw" Type="int" />
+          <Property Name="tAcw" Type="int" />
+          <Property Name="tAcwComplete" Type="int" />
+          <Property Name="nExternToInternCalls" Type="int" />
+          <Property Name="nExternToInternAcdCalls" Type="int" />
+          <Property Name="nInternToExternCalls" Type="int" />
+          <Property Name="nInternToExternAcdCalls" Type="int" />
+          <Property Name="nInternToInternCalls" Type="int" />
+          <Property Name="nInternToInternAcdCalls" Type="int" />
+          <Property Name="tExternToInternCalls" Type="int" />
+          <Property Name="tExternToInternAcdCalls" Type="int" />
+          <Property Name="tInternToExternCalls" Type="int" />
+          <Property Name="tInternToExternAcdCalls" Type="int" />
+          <Property Name="tInternToInternCalls" Type="int" />
+          <Property Name="tInternToInternAcdCalls" Type="int" />
+          <Property Name="nAcwCalls" Type="int" />
+          <Property Name="tAcwCalls" Type="int" />
+          <Property Name="nTransferedAcd" Type="int" />
+          <Property Name="nNotAnsweredAcd" Type="int" />
+          <Property Name="tAlertedAcd" Type="int" />
+          <Property Name="nFlowOutAcd" Type="int" />
+          <Property Name="tFlowOutAcd" Type="int" />
+          <Property Name="nStartWaitAlertAcdCalls" Type="int" />
+          <Property Name="nStartActiveAcdCalls" Type="int" />
+          <Property Name="nStartHeldAcdCalls" Type="int" />
+          <Property Name="nEndWaitAlertAcdCalls" Type="int" />
+          <Property Name="nEndActiveAcdCalls" Type="int" />
+          <Property Name="nEndHeldAcdCalls" Type="int" />
+          <Property Name="nTransferWithinAcdCalls" Type="int" />
+          <Property Name="nTransferOutAcdCalls" Type="int" />
+          <Property Name="nDisconnectAcd" Type="int" />
+          <Property Name="tAgentLoggedIn" Type="int" />
+          <Property Name="tAgentAvailable" Type="int" />
+          <Property Name="tAgentTalk" Type="int" />
+          <Property Name="tAgentOtherBusy" Type="int" />
+          <Property Name="tAgentOnAcdCall" Type="int" />
+          <Property Name="tAgentOnOtherAcdCall" Type="int" />
+          <Property Name="tAgentInAcw" Type="int" />
+          <Property Name="tAgentOnNonAcdCall" Type="int" />
+          <Property Name="tAgentDnd" Type="int" />
+          <Property Name="tAgentNotAvailable" Type="int" />
+          <Property Name="tAgentAcdLoggedIn" Type="int" />
+          <Property Name="tAgentAcdLoggedIn2" Type="int" />
+          <Property Name="tAgentStatusDnd" Type="int" />
+          <Property Name="tAgentStatusAcw" Type="int" />
+          <Property Name="tAgentLoggedInDiluted" Type="int" />
+          <Property Name="tStatusGroupFollowup" Type="int" />
+          <Property Name="tStatusGroupBreak" Type="int" />
+          <Property Name="tStatusGroupTraining" Type="int" />
+          <Property Name="CustomValue1" Type="int" />
+          <Property Name="CustomValue2" Type="int" />
+          <Property Name="CustomValue3" Type="int" />
+          <Property Name="CustomValue4" Type="int" />
+          <Property Name="CustomValue5" Type="int" />
+          <Property Name="CustomValue6" Type="int" />
+          <Property Name="nAllInternToExternCalls" Type="int" />
+          <Property Name="nAllInternToExternAcdCalls" Type="int" />
+          <Property Name="tAllInternToExternCalls" Type="int" />
+          <Property Name="tAllInternToExternAcdCalls" Type="int" />
+          <Property Name="tAllTalkAcd" Type="int" />
+          <Property Name="tAllHoldAcd" Type="int" />
+          <Property Name="tAllAgentOnAcdCall" Type="int" />
+          <Property Name="nAllInternToInternCalls" Type="int" />
+          <Property Name="nAllExternToInternCalls" Type="int" />
+          <Property Name="nAllExternToInternAcdCalls" Type="int" />
+          <Property Name="tAllExternToInternCalls" Type="int" />
+          <Property Name="tAllExternToInternAcdCalls" Type="int" />
+          <Property Name="tAllAgentAvailable" Type="int" />
+          <Property Name="tAllAgentInAcw" Type="int" />
+          <Property Name="tAllAgentStatusDnd" Type="int" />
+          <Property Name="tAllAgentLoggedIn" Type="int" />
+          <Property Name="tAllAgentAcdLoggedIn2" Type="int" />
+          <Property Name="tAllAgentAcdLoggedIn" Type="int" />
+          <Property Name="SiteId" Type="smallint" Nullable="false" />
+          <Property Name="SubSiteId" Type="int" Nullable="false" />
+          <Property Name="I3TimeStampGMT" Type="datetime" Nullable="false" />
+          <Property Name="DimensionSet" Type="int" Nullable="false" />
+          <Property Name="SummDimensionSet" Type="int" />
+          <Property Name="ConfigurationSet" Type="int" Nullable="false" />
+          <Property Name="nServiceLevel" Type="int" Nullable="false" />
+          <Property Name="cServiceLevels" Type="varchar" MaxLength="1024" />
+          <Property Name="SchemaMajorVersion" Type="tinyint" Nullable="false" />
+          <Property Name="SchemaMinorVersion" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'SIM4CDB.dbo.IWrkgrpQueueStats' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="IWrkgrpQueueStats">
+          <Key>
+            <PropertyRef Name="StatisticsSet" />
+            <PropertyRef Name="cName" />
+            <PropertyRef Name="cReportGroup" />
+            <PropertyRef Name="cHKey3" />
+            <PropertyRef Name="cHKey4" />
+            <PropertyRef Name="cType" />
+            <PropertyRef Name="dIntervalStart" />
+            <PropertyRef Name="nDuration" />
+            <PropertyRef Name="SiteId" />
+            <PropertyRef Name="SubSiteId" />
+            <PropertyRef Name="I3TimeStampGMT" />
+            <PropertyRef Name="DimensionSet" />
+            <PropertyRef Name="ConfigurationSet" />
+            <PropertyRef Name="nServiceLevel" />
+            <PropertyRef Name="SchemaMajorVersion" />
+            <PropertyRef Name="SchemaMinorVersion" />
+          </Key>
+          <Property Name="StatisticsSet" Type="int" Nullable="false" />
+          <Property Name="cName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="cReportGroup" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="cHKey3" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="cHKey4" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="cType" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="dIntervalStart" Type="datetime" Nullable="false" />
+          <Property Name="dIntervalStartUTC" Type="datetime" />
+          <Property Name="nDuration" Type="int" Nullable="false" />
+          <Property Name="nEnteredAcd" Type="int" />
+          <Property Name="nAbandonedAcd" Type="int" />
+          <Property Name="nGrabbedAcd" Type="int" />
+          <Property Name="nLocalDisconnectAcd" Type="int" />
+          <Property Name="nLocalDisconnectAgentAlertAcd" Type="int" />
+          <Property Name="nLocalDisconnectAgentAcd" Type="int" />
+          <Property Name="nAlertedAcd" Type="int" />
+          <Property Name="nAnsweredAcd" Type="int" />
+          <Property Name="nAnswered" Type="int" />
+          <Property Name="nAcdSvcLvl" Type="int" />
+          <Property Name="nAnsweredAcdSvcLvl" Type="int" />
+          <Property Name="nAnsweredAcdSvcLvl1" Type="int" />
+          <Property Name="nAnsweredAcdSvcLvl2" Type="int" />
+          <Property Name="nAnsweredAcdSvcLvl3" Type="int" />
+          <Property Name="nAnsweredAcdSvcLvl4" Type="int" />
+          <Property Name="nAnsweredAcdSvcLvl5" Type="int" />
+          <Property Name="nAnsweredAcdSvcLvl6" Type="int" />
+          <Property Name="nAbandonAcdSvcLvl" Type="int" />
+          <Property Name="nAbandonAcdSvcLvl1" Type="int" />
+          <Property Name="nAbandonAcdSvcLvl2" Type="int" />
+          <Property Name="nAbandonAcdSvcLvl3" Type="int" />
+          <Property Name="nAbandonAcdSvcLvl4" Type="int" />
+          <Property Name="nAbandonAcdSvcLvl5" Type="int" />
+          <Property Name="nAbandonAcdSvcLvl6" Type="int" />
+          <Property Name="tGrabbedAcd" Type="int" />
+          <Property Name="tAnsweredAcd" Type="int" />
+          <Property Name="mtAnsweredAcd" Type="int" />
+          <Property Name="tAbandonedAcd" Type="int" />
+          <Property Name="tTalkAcd" Type="int" />
+          <Property Name="tTalkCompleteAcd" Type="int" />
+          <Property Name="nHoldAcd" Type="int" />
+          <Property Name="tHoldAcd" Type="int" />
+          <Property Name="nSuspendedAcd" Type="int" />
+          <Property Name="tSuspendedAcd" Type="int" />
+          <Property Name="nHeldSpanAcd" Type="int" />
+          <Property Name="nAcw" Type="int" />
+          <Property Name="tAcw" Type="int" />
+          <Property Name="tAcwComplete" Type="int" />
+          <Property Name="nExternToInternCalls" Type="int" />
+          <Property Name="nExternToInternAcdCalls" Type="int" />
+          <Property Name="nInternToExternCalls" Type="int" />
+          <Property Name="nInternToExternAcdCalls" Type="int" />
+          <Property Name="nInternToInternCalls" Type="int" />
+          <Property Name="nInternToInternAcdCalls" Type="int" />
+          <Property Name="tExternToInternCalls" Type="int" />
+          <Property Name="tExternToInternAcdCalls" Type="int" />
+          <Property Name="tInternToExternCalls" Type="int" />
+          <Property Name="tInternToExternAcdCalls" Type="int" />
+          <Property Name="tInternToInternCalls" Type="int" />
+          <Property Name="tInternToInternAcdCalls" Type="int" />
+          <Property Name="nAcwCalls" Type="int" />
+          <Property Name="tAcwCalls" Type="int" />
+          <Property Name="nTransferedAcd" Type="int" />
+          <Property Name="nNotAnsweredAcd" Type="int" />
+          <Property Name="tAlertedAcd" Type="int" />
+          <Property Name="nFlowOutAcd" Type="int" />
+          <Property Name="tFlowOutAcd" Type="int" />
+          <Property Name="nStartWaitAlertAcdCalls" Type="int" />
+          <Property Name="nStartActiveAcdCalls" Type="int" />
+          <Property Name="nStartHeldAcdCalls" Type="int" />
+          <Property Name="nEndWaitAlertAcdCalls" Type="int" />
+          <Property Name="nEndActiveAcdCalls" Type="int" />
+          <Property Name="nEndHeldAcdCalls" Type="int" />
+          <Property Name="nTransferWithinAcdCalls" Type="int" />
+          <Property Name="nTransferOutAcdCalls" Type="int" />
+          <Property Name="nDisconnectAcd" Type="int" />
+          <Property Name="tAgentLoggedIn" Type="int" />
+          <Property Name="tAgentAvailable" Type="int" />
+          <Property Name="tAgentTalk" Type="int" />
+          <Property Name="tAgentOtherBusy" Type="int" />
+          <Property Name="tAgentOnAcdCall" Type="int" />
+          <Property Name="tAgentOnOtherAcdCall" Type="int" />
+          <Property Name="tAgentInAcw" Type="int" />
+          <Property Name="tAgentOnNonAcdCall" Type="int" />
+          <Property Name="tAgentDnd" Type="int" />
+          <Property Name="tAgentNotAvailable" Type="int" />
+          <Property Name="tAgentAcdLoggedIn" Type="int" />
+          <Property Name="tAgentAcdLoggedIn2" Type="int" />
+          <Property Name="tAgentStatusDnd" Type="int" />
+          <Property Name="tAgentStatusAcw" Type="int" />
+          <Property Name="tAgentLoggedInDiluted" Type="int" />
+          <Property Name="tStatusGroupFollowup" Type="int" />
+          <Property Name="tStatusGroupBreak" Type="int" />
+          <Property Name="tStatusGroupTraining" Type="int" />
+          <Property Name="CustomValue1" Type="int" />
+          <Property Name="CustomValue2" Type="int" />
+          <Property Name="CustomValue3" Type="int" />
+          <Property Name="CustomValue4" Type="int" />
+          <Property Name="CustomValue5" Type="int" />
+          <Property Name="CustomValue6" Type="int" />
+          <Property Name="SiteId" Type="smallint" Nullable="false" />
+          <Property Name="SubSiteId" Type="int" Nullable="false" />
+          <Property Name="I3TimeStampGMT" Type="datetime" Nullable="false" />
+          <Property Name="DimensionSet" Type="int" Nullable="false" />
+          <Property Name="SummDimensionSet" Type="int" />
+          <Property Name="ConfigurationSet" Type="int" Nullable="false" />
+          <Property Name="nServiceLevel" Type="int" Nullable="false" />
+          <Property Name="cServiceLevels" Type="varchar" MaxLength="1024" />
+          <Property Name="SchemaMajorVersion" Type="tinyint" Nullable="false" />
+          <Property Name="SchemaMinorVersion" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="CicDBModelStoreContainer">
+          <EntitySet Name="InteractionSegmentDetail" EntityType="Self.InteractionSegmentDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InteractionSummary" EntityType="Self.InteractionSummary" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AgentStats" EntityType="Self.AgentStats" store:Type="Tables" store:Schema="ININ_DIALER_40">
+            <DefiningQuery>SELECT 
+[AgentStats].[campaignname] AS [campaignname], 
+[AgentStats].[siteid] AS [siteid], 
+[AgentStats].[odsoffset] AS [odsoffset], 
+[AgentStats].[agenttimeUTC] AS [agenttimeUTC], 
+[AgentStats].[agentid] AS [agentid], 
+[AgentStats].[stageid] AS [stageid], 
+[AgentStats].[callid] AS [callid], 
+[AgentStats].[callidkey] AS [callidkey], 
+[AgentStats].[propertyname] AS [propertyname], 
+[AgentStats].[propertyvalue] AS [propertyvalue]
+FROM [ININ_DIALER_40].[AgentStats] AS [AgentStats]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="CallHistory" EntityType="Self.CallHistory" store:Type="Tables" store:Schema="ININ_DIALER_40">
+            <DefiningQuery>SELECT 
+[CallHistory].[campaignname] AS [campaignname], 
+[CallHistory].[siteid] AS [siteid], 
+[CallHistory].[i3_identity] AS [i3_identity], 
+[CallHistory].[i3_rowid] AS [i3_rowid], 
+[CallHistory].[callid] AS [callid], 
+[CallHistory].[callidkey] AS [callidkey], 
+[CallHistory].[wrapupcategory] AS [wrapupcategory], 
+[CallHistory].[wrapupcode] AS [wrapupcode], 
+[CallHistory].[callingmode] AS [callingmode], 
+[CallHistory].[phonenumber] AS [phonenumber], 
+[CallHistory].[phonenumbertype] AS [phonenumbertype], 
+[CallHistory].[agentid] AS [agentid], 
+[CallHistory].[calledpartyoffset] AS [calledpartyoffset], 
+[CallHistory].[odsoffset] AS [odsoffset], 
+[CallHistory].[previewpoptimeUTC] AS [previewpoptimeUTC], 
+[CallHistory].[callplacedtimeUTC] AS [callplacedtimeUTC], 
+[CallHistory].[callansweredtimeUTC] AS [callansweredtimeUTC], 
+[CallHistory].[messageplaytimeUTC] AS [messageplaytimeUTC], 
+[CallHistory].[callconnectedtimeUTC] AS [callconnectedtimeUTC], 
+[CallHistory].[calldisconnectedtimeUTC] AS [calldisconnectedtimeUTC], 
+[CallHistory].[length] AS [length], 
+[CallHistory].[caresult] AS [caresult], 
+[CallHistory].[cadetail] AS [cadetail], 
+[CallHistory].[isabandoned] AS [isabandoned], 
+[CallHistory].[iscontact] AS [iscontact], 
+[CallHistory].[isdetect] AS [isdetect], 
+[CallHistory].[isrpc] AS [isrpc], 
+[CallHistory].[issuccess] AS [issuccess], 
+[CallHistory].[successresult] AS [successresult], 
+[CallHistory].[customdata1] AS [customdata1], 
+[CallHistory].[customdata2] AS [customdata2], 
+[CallHistory].[campaignfilterid] AS [campaignfilterid]
+FROM [ININ_DIALER_40].[CallHistory] AS [CallHistory]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="CampaignStats" EntityType="Self.CampaignStats" store:Type="Tables" store:Schema="ININ_DIALER_40">
+            <DefiningQuery>SELECT 
+[CampaignStats].[periodstarttimeUTC] AS [periodstarttimeUTC], 
+[CampaignStats].[periodendtimeUTC] AS [periodendtimeUTC], 
+[CampaignStats].[odsoffset] AS [odsoffset], 
+[CampaignStats].[campaignname] AS [campaignname], 
+[CampaignStats].[siteid] AS [siteid], 
+[CampaignStats].[event] AS [event], 
+[CampaignStats].[campaignstate] AS [campaignstate], 
+[CampaignStats].[dialingmode] AS [dialingmode], 
+[CampaignStats].[filtersize] AS [filtersize], 
+[CampaignStats].[recyclesize] AS [recyclesize], 
+[CampaignStats].[totalagents] AS [totalagents], 
+[CampaignStats].[effectivetotalagents] AS [effectivetotalagents], 
+[CampaignStats].[idleagents] AS [idleagents], 
+[CampaignStats].[effectiveidleagents] AS [effectiveidleagents], 
+[CampaignStats].[nondialeragents] AS [nondialeragents], 
+[CampaignStats].[dndagents] AS [dndagents], 
+[CampaignStats].[totaldialercalls] AS [totaldialercalls], 
+[CampaignStats].[pace] AS [pace], 
+[CampaignStats].[cpa] AS [cpa], 
+[CampaignStats].[adjcpa] AS [adjcpa], 
+[CampaignStats].[abandonrate] AS [abandonrate], 
+[CampaignStats].[priority] AS [priority]
+FROM [ININ_DIALER_40].[CampaignStats] AS [CampaignStats]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="IAgentQueueStats" EntityType="Self.IAgentQueueStats" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[IAgentQueueStats].[StatisticsSet] AS [StatisticsSet], 
+[IAgentQueueStats].[cName] AS [cName], 
+[IAgentQueueStats].[cReportGroup] AS [cReportGroup], 
+[IAgentQueueStats].[cHKey3] AS [cHKey3], 
+[IAgentQueueStats].[cHKey4] AS [cHKey4], 
+[IAgentQueueStats].[cType] AS [cType], 
+[IAgentQueueStats].[dIntervalStart] AS [dIntervalStart], 
+[IAgentQueueStats].[dIntervalStartUTC] AS [dIntervalStartUTC], 
+[IAgentQueueStats].[nDuration] AS [nDuration], 
+[IAgentQueueStats].[nEnteredAcd] AS [nEnteredAcd], 
+[IAgentQueueStats].[nAbandonedAcd] AS [nAbandonedAcd], 
+[IAgentQueueStats].[nGrabbedAcd] AS [nGrabbedAcd], 
+[IAgentQueueStats].[nLocalDisconnectAcd] AS [nLocalDisconnectAcd], 
+[IAgentQueueStats].[nLocalDisconnectAgentAlertAcd] AS [nLocalDisconnectAgentAlertAcd], 
+[IAgentQueueStats].[nLocalDisconnectAgentAcd] AS [nLocalDisconnectAgentAcd], 
+[IAgentQueueStats].[nAlertedAcd] AS [nAlertedAcd], 
+[IAgentQueueStats].[nAnsweredAcd] AS [nAnsweredAcd], 
+[IAgentQueueStats].[nAnswered] AS [nAnswered], 
+[IAgentQueueStats].[nAcdSvcLvl] AS [nAcdSvcLvl], 
+[IAgentQueueStats].[nAnsweredAcdSvcLvl] AS [nAnsweredAcdSvcLvl], 
+[IAgentQueueStats].[nAnsweredAcdSvcLvl1] AS [nAnsweredAcdSvcLvl1], 
+[IAgentQueueStats].[nAnsweredAcdSvcLvl2] AS [nAnsweredAcdSvcLvl2], 
+[IAgentQueueStats].[nAnsweredAcdSvcLvl3] AS [nAnsweredAcdSvcLvl3], 
+[IAgentQueueStats].[nAnsweredAcdSvcLvl4] AS [nAnsweredAcdSvcLvl4], 
+[IAgentQueueStats].[nAnsweredAcdSvcLvl5] AS [nAnsweredAcdSvcLvl5], 
+[IAgentQueueStats].[nAnsweredAcdSvcLvl6] AS [nAnsweredAcdSvcLvl6], 
+[IAgentQueueStats].[nAbandonAcdSvcLvl] AS [nAbandonAcdSvcLvl], 
+[IAgentQueueStats].[nAbandonAcdSvcLvl1] AS [nAbandonAcdSvcLvl1], 
+[IAgentQueueStats].[nAbandonAcdSvcLvl2] AS [nAbandonAcdSvcLvl2], 
+[IAgentQueueStats].[nAbandonAcdSvcLvl3] AS [nAbandonAcdSvcLvl3], 
+[IAgentQueueStats].[nAbandonAcdSvcLvl4] AS [nAbandonAcdSvcLvl4], 
+[IAgentQueueStats].[nAbandonAcdSvcLvl5] AS [nAbandonAcdSvcLvl5], 
+[IAgentQueueStats].[nAbandonAcdSvcLvl6] AS [nAbandonAcdSvcLvl6], 
+[IAgentQueueStats].[tGrabbedAcd] AS [tGrabbedAcd], 
+[IAgentQueueStats].[tAnsweredAcd] AS [tAnsweredAcd], 
+[IAgentQueueStats].[mtAnsweredAcd] AS [mtAnsweredAcd], 
+[IAgentQueueStats].[tAbandonedAcd] AS [tAbandonedAcd], 
+[IAgentQueueStats].[tTalkAcd] AS [tTalkAcd], 
+[IAgentQueueStats].[tTalkCompleteAcd] AS [tTalkCompleteAcd], 
+[IAgentQueueStats].[nHoldAcd] AS [nHoldAcd], 
+[IAgentQueueStats].[tHoldAcd] AS [tHoldAcd], 
+[IAgentQueueStats].[nSuspendedAcd] AS [nSuspendedAcd], 
+[IAgentQueueStats].[tSuspendedAcd] AS [tSuspendedAcd], 
+[IAgentQueueStats].[nHeldSpanAcd] AS [nHeldSpanAcd], 
+[IAgentQueueStats].[nAcw] AS [nAcw], 
+[IAgentQueueStats].[tAcw] AS [tAcw], 
+[IAgentQueueStats].[tAcwComplete] AS [tAcwComplete], 
+[IAgentQueueStats].[nExternToInternCalls] AS [nExternToInternCalls], 
+[IAgentQueueStats].[nExternToInternAcdCalls] AS [nExternToInternAcdCalls], 
+[IAgentQueueStats].[nInternToExternCalls] AS [nInternToExternCalls], 
+[IAgentQueueStats].[nInternToExternAcdCalls] AS [nInternToExternAcdCalls], 
+[IAgentQueueStats].[nInternToInternCalls] AS [nInternToInternCalls], 
+[IAgentQueueStats].[nInternToInternAcdCalls] AS [nInternToInternAcdCalls], 
+[IAgentQueueStats].[tExternToInternCalls] AS [tExternToInternCalls], 
+[IAgentQueueStats].[tExternToInternAcdCalls] AS [tExternToInternAcdCalls], 
+[IAgentQueueStats].[tInternToExternCalls] AS [tInternToExternCalls], 
+[IAgentQueueStats].[tInternToExternAcdCalls] AS [tInternToExternAcdCalls], 
+[IAgentQueueStats].[tInternToInternCalls] AS [tInternToInternCalls], 
+[IAgentQueueStats].[tInternToInternAcdCalls] AS [tInternToInternAcdCalls], 
+[IAgentQueueStats].[nAcwCalls] AS [nAcwCalls], 
+[IAgentQueueStats].[tAcwCalls] AS [tAcwCalls], 
+[IAgentQueueStats].[nTransferedAcd] AS [nTransferedAcd], 
+[IAgentQueueStats].[nNotAnsweredAcd] AS [nNotAnsweredAcd], 
+[IAgentQueueStats].[tAlertedAcd] AS [tAlertedAcd], 
+[IAgentQueueStats].[nFlowOutAcd] AS [nFlowOutAcd], 
+[IAgentQueueStats].[tFlowOutAcd] AS [tFlowOutAcd], 
+[IAgentQueueStats].[nStartWaitAlertAcdCalls] AS [nStartWaitAlertAcdCalls], 
+[IAgentQueueStats].[nStartActiveAcdCalls] AS [nStartActiveAcdCalls], 
+[IAgentQueueStats].[nStartHeldAcdCalls] AS [nStartHeldAcdCalls], 
+[IAgentQueueStats].[nEndWaitAlertAcdCalls] AS [nEndWaitAlertAcdCalls], 
+[IAgentQueueStats].[nEndActiveAcdCalls] AS [nEndActiveAcdCalls], 
+[IAgentQueueStats].[nEndHeldAcdCalls] AS [nEndHeldAcdCalls], 
+[IAgentQueueStats].[nTransferWithinAcdCalls] AS [nTransferWithinAcdCalls], 
+[IAgentQueueStats].[nTransferOutAcdCalls] AS [nTransferOutAcdCalls], 
+[IAgentQueueStats].[nDisconnectAcd] AS [nDisconnectAcd], 
+[IAgentQueueStats].[tAgentLoggedIn] AS [tAgentLoggedIn], 
+[IAgentQueueStats].[tAgentAvailable] AS [tAgentAvailable], 
+[IAgentQueueStats].[tAgentTalk] AS [tAgentTalk], 
+[IAgentQueueStats].[tAgentOtherBusy] AS [tAgentOtherBusy], 
+[IAgentQueueStats].[tAgentOnAcdCall] AS [tAgentOnAcdCall], 
+[IAgentQueueStats].[tAgentOnOtherAcdCall] AS [tAgentOnOtherAcdCall], 
+[IAgentQueueStats].[tAgentInAcw] AS [tAgentInAcw], 
+[IAgentQueueStats].[tAgentOnNonAcdCall] AS [tAgentOnNonAcdCall], 
+[IAgentQueueStats].[tAgentDnd] AS [tAgentDnd], 
+[IAgentQueueStats].[tAgentNotAvailable] AS [tAgentNotAvailable], 
+[IAgentQueueStats].[tAgentAcdLoggedIn] AS [tAgentAcdLoggedIn], 
+[IAgentQueueStats].[tAgentAcdLoggedIn2] AS [tAgentAcdLoggedIn2], 
+[IAgentQueueStats].[tAgentStatusDnd] AS [tAgentStatusDnd], 
+[IAgentQueueStats].[tAgentStatusAcw] AS [tAgentStatusAcw], 
+[IAgentQueueStats].[tAgentLoggedInDiluted] AS [tAgentLoggedInDiluted], 
+[IAgentQueueStats].[tStatusGroupFollowup] AS [tStatusGroupFollowup], 
+[IAgentQueueStats].[tStatusGroupBreak] AS [tStatusGroupBreak], 
+[IAgentQueueStats].[tStatusGroupTraining] AS [tStatusGroupTraining], 
+[IAgentQueueStats].[CustomValue1] AS [CustomValue1], 
+[IAgentQueueStats].[CustomValue2] AS [CustomValue2], 
+[IAgentQueueStats].[CustomValue3] AS [CustomValue3], 
+[IAgentQueueStats].[CustomValue4] AS [CustomValue4], 
+[IAgentQueueStats].[CustomValue5] AS [CustomValue5], 
+[IAgentQueueStats].[CustomValue6] AS [CustomValue6], 
+[IAgentQueueStats].[nAllInternToExternCalls] AS [nAllInternToExternCalls], 
+[IAgentQueueStats].[nAllInternToExternAcdCalls] AS [nAllInternToExternAcdCalls], 
+[IAgentQueueStats].[tAllInternToExternCalls] AS [tAllInternToExternCalls], 
+[IAgentQueueStats].[tAllInternToExternAcdCalls] AS [tAllInternToExternAcdCalls], 
+[IAgentQueueStats].[tAllTalkAcd] AS [tAllTalkAcd], 
+[IAgentQueueStats].[tAllHoldAcd] AS [tAllHoldAcd], 
+[IAgentQueueStats].[tAllAgentOnAcdCall] AS [tAllAgentOnAcdCall], 
+[IAgentQueueStats].[nAllInternToInternCalls] AS [nAllInternToInternCalls], 
+[IAgentQueueStats].[nAllExternToInternCalls] AS [nAllExternToInternCalls], 
+[IAgentQueueStats].[nAllExternToInternAcdCalls] AS [nAllExternToInternAcdCalls], 
+[IAgentQueueStats].[tAllExternToInternCalls] AS [tAllExternToInternCalls], 
+[IAgentQueueStats].[tAllExternToInternAcdCalls] AS [tAllExternToInternAcdCalls], 
+[IAgentQueueStats].[tAllAgentAvailable] AS [tAllAgentAvailable], 
+[IAgentQueueStats].[tAllAgentInAcw] AS [tAllAgentInAcw], 
+[IAgentQueueStats].[tAllAgentStatusDnd] AS [tAllAgentStatusDnd], 
+[IAgentQueueStats].[tAllAgentLoggedIn] AS [tAllAgentLoggedIn], 
+[IAgentQueueStats].[tAllAgentAcdLoggedIn2] AS [tAllAgentAcdLoggedIn2], 
+[IAgentQueueStats].[tAllAgentAcdLoggedIn] AS [tAllAgentAcdLoggedIn], 
+[IAgentQueueStats].[SiteId] AS [SiteId], 
+[IAgentQueueStats].[SubSiteId] AS [SubSiteId], 
+[IAgentQueueStats].[I3TimeStampGMT] AS [I3TimeStampGMT], 
+[IAgentQueueStats].[DimensionSet] AS [DimensionSet], 
+[IAgentQueueStats].[SummDimensionSet] AS [SummDimensionSet], 
+[IAgentQueueStats].[ConfigurationSet] AS [ConfigurationSet], 
+[IAgentQueueStats].[nServiceLevel] AS [nServiceLevel], 
+[IAgentQueueStats].[cServiceLevels] AS [cServiceLevels], 
+[IAgentQueueStats].[SchemaMajorVersion] AS [SchemaMajorVersion], 
+[IAgentQueueStats].[SchemaMinorVersion] AS [SchemaMinorVersion]
+FROM [dbo].[IAgentQueueStats] AS [IAgentQueueStats]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="IWrkgrpQueueStats" EntityType="Self.IWrkgrpQueueStats" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[IWrkgrpQueueStats].[StatisticsSet] AS [StatisticsSet], 
+[IWrkgrpQueueStats].[cName] AS [cName], 
+[IWrkgrpQueueStats].[cReportGroup] AS [cReportGroup], 
+[IWrkgrpQueueStats].[cHKey3] AS [cHKey3], 
+[IWrkgrpQueueStats].[cHKey4] AS [cHKey4], 
+[IWrkgrpQueueStats].[cType] AS [cType], 
+[IWrkgrpQueueStats].[dIntervalStart] AS [dIntervalStart], 
+[IWrkgrpQueueStats].[dIntervalStartUTC] AS [dIntervalStartUTC], 
+[IWrkgrpQueueStats].[nDuration] AS [nDuration], 
+[IWrkgrpQueueStats].[nEnteredAcd] AS [nEnteredAcd], 
+[IWrkgrpQueueStats].[nAbandonedAcd] AS [nAbandonedAcd], 
+[IWrkgrpQueueStats].[nGrabbedAcd] AS [nGrabbedAcd], 
+[IWrkgrpQueueStats].[nLocalDisconnectAcd] AS [nLocalDisconnectAcd], 
+[IWrkgrpQueueStats].[nLocalDisconnectAgentAlertAcd] AS [nLocalDisconnectAgentAlertAcd], 
+[IWrkgrpQueueStats].[nLocalDisconnectAgentAcd] AS [nLocalDisconnectAgentAcd], 
+[IWrkgrpQueueStats].[nAlertedAcd] AS [nAlertedAcd], 
+[IWrkgrpQueueStats].[nAnsweredAcd] AS [nAnsweredAcd], 
+[IWrkgrpQueueStats].[nAnswered] AS [nAnswered], 
+[IWrkgrpQueueStats].[nAcdSvcLvl] AS [nAcdSvcLvl], 
+[IWrkgrpQueueStats].[nAnsweredAcdSvcLvl] AS [nAnsweredAcdSvcLvl], 
+[IWrkgrpQueueStats].[nAnsweredAcdSvcLvl1] AS [nAnsweredAcdSvcLvl1], 
+[IWrkgrpQueueStats].[nAnsweredAcdSvcLvl2] AS [nAnsweredAcdSvcLvl2], 
+[IWrkgrpQueueStats].[nAnsweredAcdSvcLvl3] AS [nAnsweredAcdSvcLvl3], 
+[IWrkgrpQueueStats].[nAnsweredAcdSvcLvl4] AS [nAnsweredAcdSvcLvl4], 
+[IWrkgrpQueueStats].[nAnsweredAcdSvcLvl5] AS [nAnsweredAcdSvcLvl5], 
+[IWrkgrpQueueStats].[nAnsweredAcdSvcLvl6] AS [nAnsweredAcdSvcLvl6], 
+[IWrkgrpQueueStats].[nAbandonAcdSvcLvl] AS [nAbandonAcdSvcLvl], 
+[IWrkgrpQueueStats].[nAbandonAcdSvcLvl1] AS [nAbandonAcdSvcLvl1], 
+[IWrkgrpQueueStats].[nAbandonAcdSvcLvl2] AS [nAbandonAcdSvcLvl2], 
+[IWrkgrpQueueStats].[nAbandonAcdSvcLvl3] AS [nAbandonAcdSvcLvl3], 
+[IWrkgrpQueueStats].[nAbandonAcdSvcLvl4] AS [nAbandonAcdSvcLvl4], 
+[IWrkgrpQueueStats].[nAbandonAcdSvcLvl5] AS [nAbandonAcdSvcLvl5], 
+[IWrkgrpQueueStats].[nAbandonAcdSvcLvl6] AS [nAbandonAcdSvcLvl6], 
+[IWrkgrpQueueStats].[tGrabbedAcd] AS [tGrabbedAcd], 
+[IWrkgrpQueueStats].[tAnsweredAcd] AS [tAnsweredAcd], 
+[IWrkgrpQueueStats].[mtAnsweredAcd] AS [mtAnsweredAcd], 
+[IWrkgrpQueueStats].[tAbandonedAcd] AS [tAbandonedAcd], 
+[IWrkgrpQueueStats].[tTalkAcd] AS [tTalkAcd], 
+[IWrkgrpQueueStats].[tTalkCompleteAcd] AS [tTalkCompleteAcd], 
+[IWrkgrpQueueStats].[nHoldAcd] AS [nHoldAcd], 
+[IWrkgrpQueueStats].[tHoldAcd] AS [tHoldAcd], 
+[IWrkgrpQueueStats].[nSuspendedAcd] AS [nSuspendedAcd], 
+[IWrkgrpQueueStats].[tSuspendedAcd] AS [tSuspendedAcd], 
+[IWrkgrpQueueStats].[nHeldSpanAcd] AS [nHeldSpanAcd], 
+[IWrkgrpQueueStats].[nAcw] AS [nAcw], 
+[IWrkgrpQueueStats].[tAcw] AS [tAcw], 
+[IWrkgrpQueueStats].[tAcwComplete] AS [tAcwComplete], 
+[IWrkgrpQueueStats].[nExternToInternCalls] AS [nExternToInternCalls], 
+[IWrkgrpQueueStats].[nExternToInternAcdCalls] AS [nExternToInternAcdCalls], 
+[IWrkgrpQueueStats].[nInternToExternCalls] AS [nInternToExternCalls], 
+[IWrkgrpQueueStats].[nInternToExternAcdCalls] AS [nInternToExternAcdCalls], 
+[IWrkgrpQueueStats].[nInternToInternCalls] AS [nInternToInternCalls], 
+[IWrkgrpQueueStats].[nInternToInternAcdCalls] AS [nInternToInternAcdCalls], 
+[IWrkgrpQueueStats].[tExternToInternCalls] AS [tExternToInternCalls], 
+[IWrkgrpQueueStats].[tExternToInternAcdCalls] AS [tExternToInternAcdCalls], 
+[IWrkgrpQueueStats].[tInternToExternCalls] AS [tInternToExternCalls], 
+[IWrkgrpQueueStats].[tInternToExternAcdCalls] AS [tInternToExternAcdCalls], 
+[IWrkgrpQueueStats].[tInternToInternCalls] AS [tInternToInternCalls], 
+[IWrkgrpQueueStats].[tInternToInternAcdCalls] AS [tInternToInternAcdCalls], 
+[IWrkgrpQueueStats].[nAcwCalls] AS [nAcwCalls], 
+[IWrkgrpQueueStats].[tAcwCalls] AS [tAcwCalls], 
+[IWrkgrpQueueStats].[nTransferedAcd] AS [nTransferedAcd], 
+[IWrkgrpQueueStats].[nNotAnsweredAcd] AS [nNotAnsweredAcd], 
+[IWrkgrpQueueStats].[tAlertedAcd] AS [tAlertedAcd], 
+[IWrkgrpQueueStats].[nFlowOutAcd] AS [nFlowOutAcd], 
+[IWrkgrpQueueStats].[tFlowOutAcd] AS [tFlowOutAcd], 
+[IWrkgrpQueueStats].[nStartWaitAlertAcdCalls] AS [nStartWaitAlertAcdCalls], 
+[IWrkgrpQueueStats].[nStartActiveAcdCalls] AS [nStartActiveAcdCalls], 
+[IWrkgrpQueueStats].[nStartHeldAcdCalls] AS [nStartHeldAcdCalls], 
+[IWrkgrpQueueStats].[nEndWaitAlertAcdCalls] AS [nEndWaitAlertAcdCalls], 
+[IWrkgrpQueueStats].[nEndActiveAcdCalls] AS [nEndActiveAcdCalls], 
+[IWrkgrpQueueStats].[nEndHeldAcdCalls] AS [nEndHeldAcdCalls], 
+[IWrkgrpQueueStats].[nTransferWithinAcdCalls] AS [nTransferWithinAcdCalls], 
+[IWrkgrpQueueStats].[nTransferOutAcdCalls] AS [nTransferOutAcdCalls], 
+[IWrkgrpQueueStats].[nDisconnectAcd] AS [nDisconnectAcd], 
+[IWrkgrpQueueStats].[tAgentLoggedIn] AS [tAgentLoggedIn], 
+[IWrkgrpQueueStats].[tAgentAvailable] AS [tAgentAvailable], 
+[IWrkgrpQueueStats].[tAgentTalk] AS [tAgentTalk], 
+[IWrkgrpQueueStats].[tAgentOtherBusy] AS [tAgentOtherBusy], 
+[IWrkgrpQueueStats].[tAgentOnAcdCall] AS [tAgentOnAcdCall], 
+[IWrkgrpQueueStats].[tAgentOnOtherAcdCall] AS [tAgentOnOtherAcdCall], 
+[IWrkgrpQueueStats].[tAgentInAcw] AS [tAgentInAcw], 
+[IWrkgrpQueueStats].[tAgentOnNonAcdCall] AS [tAgentOnNonAcdCall], 
+[IWrkgrpQueueStats].[tAgentDnd] AS [tAgentDnd], 
+[IWrkgrpQueueStats].[tAgentNotAvailable] AS [tAgentNotAvailable], 
+[IWrkgrpQueueStats].[tAgentAcdLoggedIn] AS [tAgentAcdLoggedIn], 
+[IWrkgrpQueueStats].[tAgentAcdLoggedIn2] AS [tAgentAcdLoggedIn2], 
+[IWrkgrpQueueStats].[tAgentStatusDnd] AS [tAgentStatusDnd], 
+[IWrkgrpQueueStats].[tAgentStatusAcw] AS [tAgentStatusAcw], 
+[IWrkgrpQueueStats].[tAgentLoggedInDiluted] AS [tAgentLoggedInDiluted], 
+[IWrkgrpQueueStats].[tStatusGroupFollowup] AS [tStatusGroupFollowup], 
+[IWrkgrpQueueStats].[tStatusGroupBreak] AS [tStatusGroupBreak], 
+[IWrkgrpQueueStats].[tStatusGroupTraining] AS [tStatusGroupTraining], 
+[IWrkgrpQueueStats].[CustomValue1] AS [CustomValue1], 
+[IWrkgrpQueueStats].[CustomValue2] AS [CustomValue2], 
+[IWrkgrpQueueStats].[CustomValue3] AS [CustomValue3], 
+[IWrkgrpQueueStats].[CustomValue4] AS [CustomValue4], 
+[IWrkgrpQueueStats].[CustomValue5] AS [CustomValue5], 
+[IWrkgrpQueueStats].[CustomValue6] AS [CustomValue6], 
+[IWrkgrpQueueStats].[SiteId] AS [SiteId], 
+[IWrkgrpQueueStats].[SubSiteId] AS [SubSiteId], 
+[IWrkgrpQueueStats].[I3TimeStampGMT] AS [I3TimeStampGMT], 
+[IWrkgrpQueueStats].[DimensionSet] AS [DimensionSet], 
+[IWrkgrpQueueStats].[SummDimensionSet] AS [SummDimensionSet], 
+[IWrkgrpQueueStats].[ConfigurationSet] AS [ConfigurationSet], 
+[IWrkgrpQueueStats].[nServiceLevel] AS [nServiceLevel], 
+[IWrkgrpQueueStats].[cServiceLevels] AS [cServiceLevels], 
+[IWrkgrpQueueStats].[SchemaMajorVersion] AS [SchemaMajorVersion], 
+[IWrkgrpQueueStats].[SchemaMinorVersion] AS [SchemaMinorVersion]
+FROM [dbo].[IWrkgrpQueueStats] AS [IWrkgrpQueueStats]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="CicDBModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="CicDBEntities" p1:LazyLoadingEnabled="true">
           <EntitySet Name="InteractionSegmentDetail" EntityType="CicDBModel.InteractionSegmentDetail" />
           <EntitySet Name="InteractionSummary" EntityType="CicDBModel.InteractionSummary" />
+          <EntitySet Name="AgentStats" EntityType="CicDBModel.AgentStat" />
+          <EntitySet Name="CallHistories" EntityType="CicDBModel.CallHistory" />
+          <EntitySet Name="CampaignStats" EntityType="CicDBModel.CampaignStat" />
+          <EntitySet Name="IAgentQueueStats" EntityType="CicDBModel.IAgentQueueStats" />
+          <EntitySet Name="IWrkgrpQueueStats" EntityType="CicDBModel.IWrkgrpQueueStats" />
         </EntityContainer>
         <EntityType Name="InteractionSegmentDetail">
           <Key>
@@ -179,6 +893,386 @@
           <Property Name="nSecuredIVR" Type="Int16" Nullable="false" />
           <Property Name="tSecuredIVR" Type="Decimal" Precision="19" Scale="0" />
           <Property Name="FirstAssignedAcdSkillSet" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="AgentStat">
+          <Key>
+            <PropertyRef Name="siteid" />
+            <PropertyRef Name="odsoffset" />
+            <PropertyRef Name="agenttimeUTC" />
+            <PropertyRef Name="agentid" />
+            <PropertyRef Name="propertyname" />
+          </Key>
+          <Property Name="campaignname" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="siteid" Type="String" Nullable="false" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="odsoffset" Type="Int32" Nullable="false" />
+          <Property Name="agenttimeUTC" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="agentid" Type="String" Nullable="false" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="stageid" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="callid" Type="String" MaxLength="11" FixedLength="false" Unicode="false" />
+          <Property Name="callidkey" Type="String" MaxLength="18" FixedLength="false" Unicode="false" />
+          <Property Name="propertyname" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="propertyvalue" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="CallHistory">
+          <Key>
+            <PropertyRef Name="campaignname" />
+            <PropertyRef Name="siteid" />
+            <PropertyRef Name="wrapupcategory" />
+            <PropertyRef Name="wrapupcode" />
+            <PropertyRef Name="odsoffset" />
+            <PropertyRef Name="calldisconnectedtimeUTC" />
+          </Key>
+          <Property Name="campaignname" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="siteid" Type="String" Nullable="false" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="i3_identity" Type="Int64" />
+          <Property Name="i3_rowid" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="callid" Type="String" MaxLength="11" FixedLength="true" Unicode="false" />
+          <Property Name="callidkey" Type="String" MaxLength="18" FixedLength="true" Unicode="false" />
+          <Property Name="wrapupcategory" Type="String" Nullable="false" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="wrapupcode" Type="String" Nullable="false" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="callingmode" Type="Byte" />
+          <Property Name="phonenumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="phonenumbertype" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="agentid" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="calledpartyoffset" Type="Int32" />
+          <Property Name="odsoffset" Type="Int32" Nullable="false" />
+          <Property Name="previewpoptimeUTC" Type="DateTime" Precision="3" />
+          <Property Name="callplacedtimeUTC" Type="DateTime" Precision="3" />
+          <Property Name="callansweredtimeUTC" Type="DateTime" Precision="3" />
+          <Property Name="messageplaytimeUTC" Type="DateTime" Precision="3" />
+          <Property Name="callconnectedtimeUTC" Type="DateTime" Precision="3" />
+          <Property Name="calldisconnectedtimeUTC" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="length" Type="Int32" />
+          <Property Name="caresult" Type="Byte" />
+          <Property Name="cadetail" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="isabandoned" Type="Boolean" />
+          <Property Name="iscontact" Type="Boolean" />
+          <Property Name="isdetect" Type="Boolean" />
+          <Property Name="isrpc" Type="Boolean" />
+          <Property Name="issuccess" Type="Boolean" />
+          <Property Name="successresult" Type="Double" />
+          <Property Name="customdata1" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="customdata2" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="campaignfilterid" Type="Int16" />
+        </EntityType>
+        <EntityType Name="CampaignStat">
+          <Key>
+            <PropertyRef Name="periodstarttimeUTC" />
+            <PropertyRef Name="periodendtimeUTC" />
+            <PropertyRef Name="odsoffset" />
+            <PropertyRef Name="campaignname" />
+            <PropertyRef Name="siteid" />
+            <PropertyRef Name="campaignstate" />
+            <PropertyRef Name="dialingmode" />
+            <PropertyRef Name="filtersize" />
+            <PropertyRef Name="recyclesize" />
+            <PropertyRef Name="totalagents" />
+            <PropertyRef Name="effectivetotalagents" />
+            <PropertyRef Name="idleagents" />
+            <PropertyRef Name="effectiveidleagents" />
+            <PropertyRef Name="nondialeragents" />
+            <PropertyRef Name="dndagents" />
+            <PropertyRef Name="totaldialercalls" />
+            <PropertyRef Name="priority" />
+          </Key>
+          <Property Name="periodstarttimeUTC" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="periodendtimeUTC" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="odsoffset" Type="Int32" Nullable="false" />
+          <Property Name="campaignname" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="siteid" Type="String" Nullable="false" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="event" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="campaignstate" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="dialingmode" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="filtersize" Type="Int32" Nullable="false" />
+          <Property Name="recyclesize" Type="Int32" Nullable="false" />
+          <Property Name="totalagents" Type="Int32" Nullable="false" />
+          <Property Name="effectivetotalagents" Type="Double" Nullable="false" />
+          <Property Name="idleagents" Type="Int32" Nullable="false" />
+          <Property Name="effectiveidleagents" Type="Double" Nullable="false" />
+          <Property Name="nondialeragents" Type="Int32" Nullable="false" />
+          <Property Name="dndagents" Type="Int32" Nullable="false" />
+          <Property Name="totaldialercalls" Type="Int32" Nullable="false" />
+          <Property Name="pace" Type="Int32" />
+          <Property Name="cpa" Type="Double" />
+          <Property Name="adjcpa" Type="Double" />
+          <Property Name="abandonrate" Type="Double" />
+          <Property Name="priority" Type="Byte" Nullable="false" />
+        </EntityType>
+        <EntityType Name="IAgentQueueStats">
+          <Key>
+            <PropertyRef Name="StatisticsSet" />
+            <PropertyRef Name="cName" />
+            <PropertyRef Name="cReportGroup" />
+            <PropertyRef Name="cHKey3" />
+            <PropertyRef Name="cHKey4" />
+            <PropertyRef Name="cType" />
+            <PropertyRef Name="dIntervalStart" />
+            <PropertyRef Name="nDuration" />
+            <PropertyRef Name="SiteId" />
+            <PropertyRef Name="SubSiteId" />
+            <PropertyRef Name="I3TimeStampGMT" />
+            <PropertyRef Name="DimensionSet" />
+            <PropertyRef Name="ConfigurationSet" />
+            <PropertyRef Name="nServiceLevel" />
+            <PropertyRef Name="SchemaMajorVersion" />
+            <PropertyRef Name="SchemaMinorVersion" />
+          </Key>
+          <Property Name="StatisticsSet" Type="Int32" Nullable="false" />
+          <Property Name="cName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="cReportGroup" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="cHKey3" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="cHKey4" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="cType" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="dIntervalStart" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="dIntervalStartUTC" Type="DateTime" Precision="3" />
+          <Property Name="nDuration" Type="Int32" Nullable="false" />
+          <Property Name="nEnteredAcd" Type="Int32" />
+          <Property Name="nAbandonedAcd" Type="Int32" />
+          <Property Name="nGrabbedAcd" Type="Int32" />
+          <Property Name="nLocalDisconnectAcd" Type="Int32" />
+          <Property Name="nLocalDisconnectAgentAlertAcd" Type="Int32" />
+          <Property Name="nLocalDisconnectAgentAcd" Type="Int32" />
+          <Property Name="nAlertedAcd" Type="Int32" />
+          <Property Name="nAnsweredAcd" Type="Int32" />
+          <Property Name="nAnswered" Type="Int32" />
+          <Property Name="nAcdSvcLvl" Type="Int32" />
+          <Property Name="nAnsweredAcdSvcLvl" Type="Int32" />
+          <Property Name="nAnsweredAcdSvcLvl1" Type="Int32" />
+          <Property Name="nAnsweredAcdSvcLvl2" Type="Int32" />
+          <Property Name="nAnsweredAcdSvcLvl3" Type="Int32" />
+          <Property Name="nAnsweredAcdSvcLvl4" Type="Int32" />
+          <Property Name="nAnsweredAcdSvcLvl5" Type="Int32" />
+          <Property Name="nAnsweredAcdSvcLvl6" Type="Int32" />
+          <Property Name="nAbandonAcdSvcLvl" Type="Int32" />
+          <Property Name="nAbandonAcdSvcLvl1" Type="Int32" />
+          <Property Name="nAbandonAcdSvcLvl2" Type="Int32" />
+          <Property Name="nAbandonAcdSvcLvl3" Type="Int32" />
+          <Property Name="nAbandonAcdSvcLvl4" Type="Int32" />
+          <Property Name="nAbandonAcdSvcLvl5" Type="Int32" />
+          <Property Name="nAbandonAcdSvcLvl6" Type="Int32" />
+          <Property Name="tGrabbedAcd" Type="Int32" />
+          <Property Name="tAnsweredAcd" Type="Int32" />
+          <Property Name="mtAnsweredAcd" Type="Int32" />
+          <Property Name="tAbandonedAcd" Type="Int32" />
+          <Property Name="tTalkAcd" Type="Int32" />
+          <Property Name="tTalkCompleteAcd" Type="Int32" />
+          <Property Name="nHoldAcd" Type="Int32" />
+          <Property Name="tHoldAcd" Type="Int32" />
+          <Property Name="nSuspendedAcd" Type="Int32" />
+          <Property Name="tSuspendedAcd" Type="Int32" />
+          <Property Name="nHeldSpanAcd" Type="Int32" />
+          <Property Name="nAcw" Type="Int32" />
+          <Property Name="tAcw" Type="Int32" />
+          <Property Name="tAcwComplete" Type="Int32" />
+          <Property Name="nExternToInternCalls" Type="Int32" />
+          <Property Name="nExternToInternAcdCalls" Type="Int32" />
+          <Property Name="nInternToExternCalls" Type="Int32" />
+          <Property Name="nInternToExternAcdCalls" Type="Int32" />
+          <Property Name="nInternToInternCalls" Type="Int32" />
+          <Property Name="nInternToInternAcdCalls" Type="Int32" />
+          <Property Name="tExternToInternCalls" Type="Int32" />
+          <Property Name="tExternToInternAcdCalls" Type="Int32" />
+          <Property Name="tInternToExternCalls" Type="Int32" />
+          <Property Name="tInternToExternAcdCalls" Type="Int32" />
+          <Property Name="tInternToInternCalls" Type="Int32" />
+          <Property Name="tInternToInternAcdCalls" Type="Int32" />
+          <Property Name="nAcwCalls" Type="Int32" />
+          <Property Name="tAcwCalls" Type="Int32" />
+          <Property Name="nTransferedAcd" Type="Int32" />
+          <Property Name="nNotAnsweredAcd" Type="Int32" />
+          <Property Name="tAlertedAcd" Type="Int32" />
+          <Property Name="nFlowOutAcd" Type="Int32" />
+          <Property Name="tFlowOutAcd" Type="Int32" />
+          <Property Name="nStartWaitAlertAcdCalls" Type="Int32" />
+          <Property Name="nStartActiveAcdCalls" Type="Int32" />
+          <Property Name="nStartHeldAcdCalls" Type="Int32" />
+          <Property Name="nEndWaitAlertAcdCalls" Type="Int32" />
+          <Property Name="nEndActiveAcdCalls" Type="Int32" />
+          <Property Name="nEndHeldAcdCalls" Type="Int32" />
+          <Property Name="nTransferWithinAcdCalls" Type="Int32" />
+          <Property Name="nTransferOutAcdCalls" Type="Int32" />
+          <Property Name="nDisconnectAcd" Type="Int32" />
+          <Property Name="tAgentLoggedIn" Type="Int32" />
+          <Property Name="tAgentAvailable" Type="Int32" />
+          <Property Name="tAgentTalk" Type="Int32" />
+          <Property Name="tAgentOtherBusy" Type="Int32" />
+          <Property Name="tAgentOnAcdCall" Type="Int32" />
+          <Property Name="tAgentOnOtherAcdCall" Type="Int32" />
+          <Property Name="tAgentInAcw" Type="Int32" />
+          <Property Name="tAgentOnNonAcdCall" Type="Int32" />
+          <Property Name="tAgentDnd" Type="Int32" />
+          <Property Name="tAgentNotAvailable" Type="Int32" />
+          <Property Name="tAgentAcdLoggedIn" Type="Int32" />
+          <Property Name="tAgentAcdLoggedIn2" Type="Int32" />
+          <Property Name="tAgentStatusDnd" Type="Int32" />
+          <Property Name="tAgentStatusAcw" Type="Int32" />
+          <Property Name="tAgentLoggedInDiluted" Type="Int32" />
+          <Property Name="tStatusGroupFollowup" Type="Int32" />
+          <Property Name="tStatusGroupBreak" Type="Int32" />
+          <Property Name="tStatusGroupTraining" Type="Int32" />
+          <Property Name="CustomValue1" Type="Int32" />
+          <Property Name="CustomValue2" Type="Int32" />
+          <Property Name="CustomValue3" Type="Int32" />
+          <Property Name="CustomValue4" Type="Int32" />
+          <Property Name="CustomValue5" Type="Int32" />
+          <Property Name="CustomValue6" Type="Int32" />
+          <Property Name="nAllInternToExternCalls" Type="Int32" />
+          <Property Name="nAllInternToExternAcdCalls" Type="Int32" />
+          <Property Name="tAllInternToExternCalls" Type="Int32" />
+          <Property Name="tAllInternToExternAcdCalls" Type="Int32" />
+          <Property Name="tAllTalkAcd" Type="Int32" />
+          <Property Name="tAllHoldAcd" Type="Int32" />
+          <Property Name="tAllAgentOnAcdCall" Type="Int32" />
+          <Property Name="nAllInternToInternCalls" Type="Int32" />
+          <Property Name="nAllExternToInternCalls" Type="Int32" />
+          <Property Name="nAllExternToInternAcdCalls" Type="Int32" />
+          <Property Name="tAllExternToInternCalls" Type="Int32" />
+          <Property Name="tAllExternToInternAcdCalls" Type="Int32" />
+          <Property Name="tAllAgentAvailable" Type="Int32" />
+          <Property Name="tAllAgentInAcw" Type="Int32" />
+          <Property Name="tAllAgentStatusDnd" Type="Int32" />
+          <Property Name="tAllAgentLoggedIn" Type="Int32" />
+          <Property Name="tAllAgentAcdLoggedIn2" Type="Int32" />
+          <Property Name="tAllAgentAcdLoggedIn" Type="Int32" />
+          <Property Name="SiteId" Type="Int16" Nullable="false" />
+          <Property Name="SubSiteId" Type="Int32" Nullable="false" />
+          <Property Name="I3TimeStampGMT" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DimensionSet" Type="Int32" Nullable="false" />
+          <Property Name="SummDimensionSet" Type="Int32" />
+          <Property Name="ConfigurationSet" Type="Int32" Nullable="false" />
+          <Property Name="nServiceLevel" Type="Int32" Nullable="false" />
+          <Property Name="cServiceLevels" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" />
+          <Property Name="SchemaMajorVersion" Type="Byte" Nullable="false" />
+          <Property Name="SchemaMinorVersion" Type="Byte" Nullable="false" />
+        </EntityType>
+        <EntityType Name="IWrkgrpQueueStats">
+          <Key>
+            <PropertyRef Name="StatisticsSet" />
+            <PropertyRef Name="cName" />
+            <PropertyRef Name="cReportGroup" />
+            <PropertyRef Name="cHKey3" />
+            <PropertyRef Name="cHKey4" />
+            <PropertyRef Name="cType" />
+            <PropertyRef Name="dIntervalStart" />
+            <PropertyRef Name="nDuration" />
+            <PropertyRef Name="SiteId" />
+            <PropertyRef Name="SubSiteId" />
+            <PropertyRef Name="I3TimeStampGMT" />
+            <PropertyRef Name="DimensionSet" />
+            <PropertyRef Name="ConfigurationSet" />
+            <PropertyRef Name="nServiceLevel" />
+            <PropertyRef Name="SchemaMajorVersion" />
+            <PropertyRef Name="SchemaMinorVersion" />
+          </Key>
+          <Property Name="StatisticsSet" Type="Int32" Nullable="false" />
+          <Property Name="cName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="cReportGroup" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="cHKey3" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="cHKey4" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="cType" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="dIntervalStart" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="dIntervalStartUTC" Type="DateTime" Precision="3" />
+          <Property Name="nDuration" Type="Int32" Nullable="false" />
+          <Property Name="nEnteredAcd" Type="Int32" />
+          <Property Name="nAbandonedAcd" Type="Int32" />
+          <Property Name="nGrabbedAcd" Type="Int32" />
+          <Property Name="nLocalDisconnectAcd" Type="Int32" />
+          <Property Name="nLocalDisconnectAgentAlertAcd" Type="Int32" />
+          <Property Name="nLocalDisconnectAgentAcd" Type="Int32" />
+          <Property Name="nAlertedAcd" Type="Int32" />
+          <Property Name="nAnsweredAcd" Type="Int32" />
+          <Property Name="nAnswered" Type="Int32" />
+          <Property Name="nAcdSvcLvl" Type="Int32" />
+          <Property Name="nAnsweredAcdSvcLvl" Type="Int32" />
+          <Property Name="nAnsweredAcdSvcLvl1" Type="Int32" />
+          <Property Name="nAnsweredAcdSvcLvl2" Type="Int32" />
+          <Property Name="nAnsweredAcdSvcLvl3" Type="Int32" />
+          <Property Name="nAnsweredAcdSvcLvl4" Type="Int32" />
+          <Property Name="nAnsweredAcdSvcLvl5" Type="Int32" />
+          <Property Name="nAnsweredAcdSvcLvl6" Type="Int32" />
+          <Property Name="nAbandonAcdSvcLvl" Type="Int32" />
+          <Property Name="nAbandonAcdSvcLvl1" Type="Int32" />
+          <Property Name="nAbandonAcdSvcLvl2" Type="Int32" />
+          <Property Name="nAbandonAcdSvcLvl3" Type="Int32" />
+          <Property Name="nAbandonAcdSvcLvl4" Type="Int32" />
+          <Property Name="nAbandonAcdSvcLvl5" Type="Int32" />
+          <Property Name="nAbandonAcdSvcLvl6" Type="Int32" />
+          <Property Name="tGrabbedAcd" Type="Int32" />
+          <Property Name="tAnsweredAcd" Type="Int32" />
+          <Property Name="mtAnsweredAcd" Type="Int32" />
+          <Property Name="tAbandonedAcd" Type="Int32" />
+          <Property Name="tTalkAcd" Type="Int32" />
+          <Property Name="tTalkCompleteAcd" Type="Int32" />
+          <Property Name="nHoldAcd" Type="Int32" />
+          <Property Name="tHoldAcd" Type="Int32" />
+          <Property Name="nSuspendedAcd" Type="Int32" />
+          <Property Name="tSuspendedAcd" Type="Int32" />
+          <Property Name="nHeldSpanAcd" Type="Int32" />
+          <Property Name="nAcw" Type="Int32" />
+          <Property Name="tAcw" Type="Int32" />
+          <Property Name="tAcwComplete" Type="Int32" />
+          <Property Name="nExternToInternCalls" Type="Int32" />
+          <Property Name="nExternToInternAcdCalls" Type="Int32" />
+          <Property Name="nInternToExternCalls" Type="Int32" />
+          <Property Name="nInternToExternAcdCalls" Type="Int32" />
+          <Property Name="nInternToInternCalls" Type="Int32" />
+          <Property Name="nInternToInternAcdCalls" Type="Int32" />
+          <Property Name="tExternToInternCalls" Type="Int32" />
+          <Property Name="tExternToInternAcdCalls" Type="Int32" />
+          <Property Name="tInternToExternCalls" Type="Int32" />
+          <Property Name="tInternToExternAcdCalls" Type="Int32" />
+          <Property Name="tInternToInternCalls" Type="Int32" />
+          <Property Name="tInternToInternAcdCalls" Type="Int32" />
+          <Property Name="nAcwCalls" Type="Int32" />
+          <Property Name="tAcwCalls" Type="Int32" />
+          <Property Name="nTransferedAcd" Type="Int32" />
+          <Property Name="nNotAnsweredAcd" Type="Int32" />
+          <Property Name="tAlertedAcd" Type="Int32" />
+          <Property Name="nFlowOutAcd" Type="Int32" />
+          <Property Name="tFlowOutAcd" Type="Int32" />
+          <Property Name="nStartWaitAlertAcdCalls" Type="Int32" />
+          <Property Name="nStartActiveAcdCalls" Type="Int32" />
+          <Property Name="nStartHeldAcdCalls" Type="Int32" />
+          <Property Name="nEndWaitAlertAcdCalls" Type="Int32" />
+          <Property Name="nEndActiveAcdCalls" Type="Int32" />
+          <Property Name="nEndHeldAcdCalls" Type="Int32" />
+          <Property Name="nTransferWithinAcdCalls" Type="Int32" />
+          <Property Name="nTransferOutAcdCalls" Type="Int32" />
+          <Property Name="nDisconnectAcd" Type="Int32" />
+          <Property Name="tAgentLoggedIn" Type="Int32" />
+          <Property Name="tAgentAvailable" Type="Int32" />
+          <Property Name="tAgentTalk" Type="Int32" />
+          <Property Name="tAgentOtherBusy" Type="Int32" />
+          <Property Name="tAgentOnAcdCall" Type="Int32" />
+          <Property Name="tAgentOnOtherAcdCall" Type="Int32" />
+          <Property Name="tAgentInAcw" Type="Int32" />
+          <Property Name="tAgentOnNonAcdCall" Type="Int32" />
+          <Property Name="tAgentDnd" Type="Int32" />
+          <Property Name="tAgentNotAvailable" Type="Int32" />
+          <Property Name="tAgentAcdLoggedIn" Type="Int32" />
+          <Property Name="tAgentAcdLoggedIn2" Type="Int32" />
+          <Property Name="tAgentStatusDnd" Type="Int32" />
+          <Property Name="tAgentStatusAcw" Type="Int32" />
+          <Property Name="tAgentLoggedInDiluted" Type="Int32" />
+          <Property Name="tStatusGroupFollowup" Type="Int32" />
+          <Property Name="tStatusGroupBreak" Type="Int32" />
+          <Property Name="tStatusGroupTraining" Type="Int32" />
+          <Property Name="CustomValue1" Type="Int32" />
+          <Property Name="CustomValue2" Type="Int32" />
+          <Property Name="CustomValue3" Type="Int32" />
+          <Property Name="CustomValue4" Type="Int32" />
+          <Property Name="CustomValue5" Type="Int32" />
+          <Property Name="CustomValue6" Type="Int32" />
+          <Property Name="SiteId" Type="Int16" Nullable="false" />
+          <Property Name="SubSiteId" Type="Int32" Nullable="false" />
+          <Property Name="I3TimeStampGMT" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DimensionSet" Type="Int32" Nullable="false" />
+          <Property Name="SummDimensionSet" Type="Int32" />
+          <Property Name="ConfigurationSet" Type="Int32" Nullable="false" />
+          <Property Name="nServiceLevel" Type="Int32" Nullable="false" />
+          <Property Name="cServiceLevels" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" />
+          <Property Name="SchemaMajorVersion" Type="Byte" Nullable="false" />
+          <Property Name="SchemaMinorVersion" Type="Byte" Nullable="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -265,6 +1359,336 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="AgentStats">
+            <EntityTypeMapping TypeName="CicDBModel.AgentStat">
+              <MappingFragment StoreEntitySet="AgentStats">
+                <ScalarProperty Name="propertyvalue" ColumnName="propertyvalue" />
+                <ScalarProperty Name="propertyname" ColumnName="propertyname" />
+                <ScalarProperty Name="callidkey" ColumnName="callidkey" />
+                <ScalarProperty Name="callid" ColumnName="callid" />
+                <ScalarProperty Name="stageid" ColumnName="stageid" />
+                <ScalarProperty Name="agentid" ColumnName="agentid" />
+                <ScalarProperty Name="agenttimeUTC" ColumnName="agenttimeUTC" />
+                <ScalarProperty Name="odsoffset" ColumnName="odsoffset" />
+                <ScalarProperty Name="siteid" ColumnName="siteid" />
+                <ScalarProperty Name="campaignname" ColumnName="campaignname" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CallHistories">
+            <EntityTypeMapping TypeName="CicDBModel.CallHistory">
+              <MappingFragment StoreEntitySet="CallHistory">
+                <ScalarProperty Name="campaignfilterid" ColumnName="campaignfilterid" />
+                <ScalarProperty Name="customdata2" ColumnName="customdata2" />
+                <ScalarProperty Name="customdata1" ColumnName="customdata1" />
+                <ScalarProperty Name="successresult" ColumnName="successresult" />
+                <ScalarProperty Name="issuccess" ColumnName="issuccess" />
+                <ScalarProperty Name="isrpc" ColumnName="isrpc" />
+                <ScalarProperty Name="isdetect" ColumnName="isdetect" />
+                <ScalarProperty Name="iscontact" ColumnName="iscontact" />
+                <ScalarProperty Name="isabandoned" ColumnName="isabandoned" />
+                <ScalarProperty Name="cadetail" ColumnName="cadetail" />
+                <ScalarProperty Name="caresult" ColumnName="caresult" />
+                <ScalarProperty Name="length" ColumnName="length" />
+                <ScalarProperty Name="calldisconnectedtimeUTC" ColumnName="calldisconnectedtimeUTC" />
+                <ScalarProperty Name="callconnectedtimeUTC" ColumnName="callconnectedtimeUTC" />
+                <ScalarProperty Name="messageplaytimeUTC" ColumnName="messageplaytimeUTC" />
+                <ScalarProperty Name="callansweredtimeUTC" ColumnName="callansweredtimeUTC" />
+                <ScalarProperty Name="callplacedtimeUTC" ColumnName="callplacedtimeUTC" />
+                <ScalarProperty Name="previewpoptimeUTC" ColumnName="previewpoptimeUTC" />
+                <ScalarProperty Name="odsoffset" ColumnName="odsoffset" />
+                <ScalarProperty Name="calledpartyoffset" ColumnName="calledpartyoffset" />
+                <ScalarProperty Name="agentid" ColumnName="agentid" />
+                <ScalarProperty Name="phonenumbertype" ColumnName="phonenumbertype" />
+                <ScalarProperty Name="phonenumber" ColumnName="phonenumber" />
+                <ScalarProperty Name="callingmode" ColumnName="callingmode" />
+                <ScalarProperty Name="wrapupcode" ColumnName="wrapupcode" />
+                <ScalarProperty Name="wrapupcategory" ColumnName="wrapupcategory" />
+                <ScalarProperty Name="callidkey" ColumnName="callidkey" />
+                <ScalarProperty Name="callid" ColumnName="callid" />
+                <ScalarProperty Name="i3_rowid" ColumnName="i3_rowid" />
+                <ScalarProperty Name="i3_identity" ColumnName="i3_identity" />
+                <ScalarProperty Name="siteid" ColumnName="siteid" />
+                <ScalarProperty Name="campaignname" ColumnName="campaignname" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CampaignStats">
+            <EntityTypeMapping TypeName="CicDBModel.CampaignStat">
+              <MappingFragment StoreEntitySet="CampaignStats">
+                <ScalarProperty Name="priority" ColumnName="priority" />
+                <ScalarProperty Name="abandonrate" ColumnName="abandonrate" />
+                <ScalarProperty Name="adjcpa" ColumnName="adjcpa" />
+                <ScalarProperty Name="cpa" ColumnName="cpa" />
+                <ScalarProperty Name="pace" ColumnName="pace" />
+                <ScalarProperty Name="totaldialercalls" ColumnName="totaldialercalls" />
+                <ScalarProperty Name="dndagents" ColumnName="dndagents" />
+                <ScalarProperty Name="nondialeragents" ColumnName="nondialeragents" />
+                <ScalarProperty Name="effectiveidleagents" ColumnName="effectiveidleagents" />
+                <ScalarProperty Name="idleagents" ColumnName="idleagents" />
+                <ScalarProperty Name="effectivetotalagents" ColumnName="effectivetotalagents" />
+                <ScalarProperty Name="totalagents" ColumnName="totalagents" />
+                <ScalarProperty Name="recyclesize" ColumnName="recyclesize" />
+                <ScalarProperty Name="filtersize" ColumnName="filtersize" />
+                <ScalarProperty Name="dialingmode" ColumnName="dialingmode" />
+                <ScalarProperty Name="campaignstate" ColumnName="campaignstate" />
+                <ScalarProperty Name="event" ColumnName="event" />
+                <ScalarProperty Name="siteid" ColumnName="siteid" />
+                <ScalarProperty Name="campaignname" ColumnName="campaignname" />
+                <ScalarProperty Name="odsoffset" ColumnName="odsoffset" />
+                <ScalarProperty Name="periodendtimeUTC" ColumnName="periodendtimeUTC" />
+                <ScalarProperty Name="periodstarttimeUTC" ColumnName="periodstarttimeUTC" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IAgentQueueStats">
+            <EntityTypeMapping TypeName="CicDBModel.IAgentQueueStats">
+              <MappingFragment StoreEntitySet="IAgentQueueStats">
+                <ScalarProperty Name="SchemaMinorVersion" ColumnName="SchemaMinorVersion" />
+                <ScalarProperty Name="SchemaMajorVersion" ColumnName="SchemaMajorVersion" />
+                <ScalarProperty Name="cServiceLevels" ColumnName="cServiceLevels" />
+                <ScalarProperty Name="nServiceLevel" ColumnName="nServiceLevel" />
+                <ScalarProperty Name="ConfigurationSet" ColumnName="ConfigurationSet" />
+                <ScalarProperty Name="SummDimensionSet" ColumnName="SummDimensionSet" />
+                <ScalarProperty Name="DimensionSet" ColumnName="DimensionSet" />
+                <ScalarProperty Name="I3TimeStampGMT" ColumnName="I3TimeStampGMT" />
+                <ScalarProperty Name="SubSiteId" ColumnName="SubSiteId" />
+                <ScalarProperty Name="SiteId" ColumnName="SiteId" />
+                <ScalarProperty Name="tAllAgentAcdLoggedIn" ColumnName="tAllAgentAcdLoggedIn" />
+                <ScalarProperty Name="tAllAgentAcdLoggedIn2" ColumnName="tAllAgentAcdLoggedIn2" />
+                <ScalarProperty Name="tAllAgentLoggedIn" ColumnName="tAllAgentLoggedIn" />
+                <ScalarProperty Name="tAllAgentStatusDnd" ColumnName="tAllAgentStatusDnd" />
+                <ScalarProperty Name="tAllAgentInAcw" ColumnName="tAllAgentInAcw" />
+                <ScalarProperty Name="tAllAgentAvailable" ColumnName="tAllAgentAvailable" />
+                <ScalarProperty Name="tAllExternToInternAcdCalls" ColumnName="tAllExternToInternAcdCalls" />
+                <ScalarProperty Name="tAllExternToInternCalls" ColumnName="tAllExternToInternCalls" />
+                <ScalarProperty Name="nAllExternToInternAcdCalls" ColumnName="nAllExternToInternAcdCalls" />
+                <ScalarProperty Name="nAllExternToInternCalls" ColumnName="nAllExternToInternCalls" />
+                <ScalarProperty Name="nAllInternToInternCalls" ColumnName="nAllInternToInternCalls" />
+                <ScalarProperty Name="tAllAgentOnAcdCall" ColumnName="tAllAgentOnAcdCall" />
+                <ScalarProperty Name="tAllHoldAcd" ColumnName="tAllHoldAcd" />
+                <ScalarProperty Name="tAllTalkAcd" ColumnName="tAllTalkAcd" />
+                <ScalarProperty Name="tAllInternToExternAcdCalls" ColumnName="tAllInternToExternAcdCalls" />
+                <ScalarProperty Name="tAllInternToExternCalls" ColumnName="tAllInternToExternCalls" />
+                <ScalarProperty Name="nAllInternToExternAcdCalls" ColumnName="nAllInternToExternAcdCalls" />
+                <ScalarProperty Name="nAllInternToExternCalls" ColumnName="nAllInternToExternCalls" />
+                <ScalarProperty Name="CustomValue6" ColumnName="CustomValue6" />
+                <ScalarProperty Name="CustomValue5" ColumnName="CustomValue5" />
+                <ScalarProperty Name="CustomValue4" ColumnName="CustomValue4" />
+                <ScalarProperty Name="CustomValue3" ColumnName="CustomValue3" />
+                <ScalarProperty Name="CustomValue2" ColumnName="CustomValue2" />
+                <ScalarProperty Name="CustomValue1" ColumnName="CustomValue1" />
+                <ScalarProperty Name="tStatusGroupTraining" ColumnName="tStatusGroupTraining" />
+                <ScalarProperty Name="tStatusGroupBreak" ColumnName="tStatusGroupBreak" />
+                <ScalarProperty Name="tStatusGroupFollowup" ColumnName="tStatusGroupFollowup" />
+                <ScalarProperty Name="tAgentLoggedInDiluted" ColumnName="tAgentLoggedInDiluted" />
+                <ScalarProperty Name="tAgentStatusAcw" ColumnName="tAgentStatusAcw" />
+                <ScalarProperty Name="tAgentStatusDnd" ColumnName="tAgentStatusDnd" />
+                <ScalarProperty Name="tAgentAcdLoggedIn2" ColumnName="tAgentAcdLoggedIn2" />
+                <ScalarProperty Name="tAgentAcdLoggedIn" ColumnName="tAgentAcdLoggedIn" />
+                <ScalarProperty Name="tAgentNotAvailable" ColumnName="tAgentNotAvailable" />
+                <ScalarProperty Name="tAgentDnd" ColumnName="tAgentDnd" />
+                <ScalarProperty Name="tAgentOnNonAcdCall" ColumnName="tAgentOnNonAcdCall" />
+                <ScalarProperty Name="tAgentInAcw" ColumnName="tAgentInAcw" />
+                <ScalarProperty Name="tAgentOnOtherAcdCall" ColumnName="tAgentOnOtherAcdCall" />
+                <ScalarProperty Name="tAgentOnAcdCall" ColumnName="tAgentOnAcdCall" />
+                <ScalarProperty Name="tAgentOtherBusy" ColumnName="tAgentOtherBusy" />
+                <ScalarProperty Name="tAgentTalk" ColumnName="tAgentTalk" />
+                <ScalarProperty Name="tAgentAvailable" ColumnName="tAgentAvailable" />
+                <ScalarProperty Name="tAgentLoggedIn" ColumnName="tAgentLoggedIn" />
+                <ScalarProperty Name="nDisconnectAcd" ColumnName="nDisconnectAcd" />
+                <ScalarProperty Name="nTransferOutAcdCalls" ColumnName="nTransferOutAcdCalls" />
+                <ScalarProperty Name="nTransferWithinAcdCalls" ColumnName="nTransferWithinAcdCalls" />
+                <ScalarProperty Name="nEndHeldAcdCalls" ColumnName="nEndHeldAcdCalls" />
+                <ScalarProperty Name="nEndActiveAcdCalls" ColumnName="nEndActiveAcdCalls" />
+                <ScalarProperty Name="nEndWaitAlertAcdCalls" ColumnName="nEndWaitAlertAcdCalls" />
+                <ScalarProperty Name="nStartHeldAcdCalls" ColumnName="nStartHeldAcdCalls" />
+                <ScalarProperty Name="nStartActiveAcdCalls" ColumnName="nStartActiveAcdCalls" />
+                <ScalarProperty Name="nStartWaitAlertAcdCalls" ColumnName="nStartWaitAlertAcdCalls" />
+                <ScalarProperty Name="tFlowOutAcd" ColumnName="tFlowOutAcd" />
+                <ScalarProperty Name="nFlowOutAcd" ColumnName="nFlowOutAcd" />
+                <ScalarProperty Name="tAlertedAcd" ColumnName="tAlertedAcd" />
+                <ScalarProperty Name="nNotAnsweredAcd" ColumnName="nNotAnsweredAcd" />
+                <ScalarProperty Name="nTransferedAcd" ColumnName="nTransferedAcd" />
+                <ScalarProperty Name="tAcwCalls" ColumnName="tAcwCalls" />
+                <ScalarProperty Name="nAcwCalls" ColumnName="nAcwCalls" />
+                <ScalarProperty Name="tInternToInternAcdCalls" ColumnName="tInternToInternAcdCalls" />
+                <ScalarProperty Name="tInternToInternCalls" ColumnName="tInternToInternCalls" />
+                <ScalarProperty Name="tInternToExternAcdCalls" ColumnName="tInternToExternAcdCalls" />
+                <ScalarProperty Name="tInternToExternCalls" ColumnName="tInternToExternCalls" />
+                <ScalarProperty Name="tExternToInternAcdCalls" ColumnName="tExternToInternAcdCalls" />
+                <ScalarProperty Name="tExternToInternCalls" ColumnName="tExternToInternCalls" />
+                <ScalarProperty Name="nInternToInternAcdCalls" ColumnName="nInternToInternAcdCalls" />
+                <ScalarProperty Name="nInternToInternCalls" ColumnName="nInternToInternCalls" />
+                <ScalarProperty Name="nInternToExternAcdCalls" ColumnName="nInternToExternAcdCalls" />
+                <ScalarProperty Name="nInternToExternCalls" ColumnName="nInternToExternCalls" />
+                <ScalarProperty Name="nExternToInternAcdCalls" ColumnName="nExternToInternAcdCalls" />
+                <ScalarProperty Name="nExternToInternCalls" ColumnName="nExternToInternCalls" />
+                <ScalarProperty Name="tAcwComplete" ColumnName="tAcwComplete" />
+                <ScalarProperty Name="tAcw" ColumnName="tAcw" />
+                <ScalarProperty Name="nAcw" ColumnName="nAcw" />
+                <ScalarProperty Name="nHeldSpanAcd" ColumnName="nHeldSpanAcd" />
+                <ScalarProperty Name="tSuspendedAcd" ColumnName="tSuspendedAcd" />
+                <ScalarProperty Name="nSuspendedAcd" ColumnName="nSuspendedAcd" />
+                <ScalarProperty Name="tHoldAcd" ColumnName="tHoldAcd" />
+                <ScalarProperty Name="nHoldAcd" ColumnName="nHoldAcd" />
+                <ScalarProperty Name="tTalkCompleteAcd" ColumnName="tTalkCompleteAcd" />
+                <ScalarProperty Name="tTalkAcd" ColumnName="tTalkAcd" />
+                <ScalarProperty Name="tAbandonedAcd" ColumnName="tAbandonedAcd" />
+                <ScalarProperty Name="mtAnsweredAcd" ColumnName="mtAnsweredAcd" />
+                <ScalarProperty Name="tAnsweredAcd" ColumnName="tAnsweredAcd" />
+                <ScalarProperty Name="tGrabbedAcd" ColumnName="tGrabbedAcd" />
+                <ScalarProperty Name="nAbandonAcdSvcLvl6" ColumnName="nAbandonAcdSvcLvl6" />
+                <ScalarProperty Name="nAbandonAcdSvcLvl5" ColumnName="nAbandonAcdSvcLvl5" />
+                <ScalarProperty Name="nAbandonAcdSvcLvl4" ColumnName="nAbandonAcdSvcLvl4" />
+                <ScalarProperty Name="nAbandonAcdSvcLvl3" ColumnName="nAbandonAcdSvcLvl3" />
+                <ScalarProperty Name="nAbandonAcdSvcLvl2" ColumnName="nAbandonAcdSvcLvl2" />
+                <ScalarProperty Name="nAbandonAcdSvcLvl1" ColumnName="nAbandonAcdSvcLvl1" />
+                <ScalarProperty Name="nAbandonAcdSvcLvl" ColumnName="nAbandonAcdSvcLvl" />
+                <ScalarProperty Name="nAnsweredAcdSvcLvl6" ColumnName="nAnsweredAcdSvcLvl6" />
+                <ScalarProperty Name="nAnsweredAcdSvcLvl5" ColumnName="nAnsweredAcdSvcLvl5" />
+                <ScalarProperty Name="nAnsweredAcdSvcLvl4" ColumnName="nAnsweredAcdSvcLvl4" />
+                <ScalarProperty Name="nAnsweredAcdSvcLvl3" ColumnName="nAnsweredAcdSvcLvl3" />
+                <ScalarProperty Name="nAnsweredAcdSvcLvl2" ColumnName="nAnsweredAcdSvcLvl2" />
+                <ScalarProperty Name="nAnsweredAcdSvcLvl1" ColumnName="nAnsweredAcdSvcLvl1" />
+                <ScalarProperty Name="nAnsweredAcdSvcLvl" ColumnName="nAnsweredAcdSvcLvl" />
+                <ScalarProperty Name="nAcdSvcLvl" ColumnName="nAcdSvcLvl" />
+                <ScalarProperty Name="nAnswered" ColumnName="nAnswered" />
+                <ScalarProperty Name="nAnsweredAcd" ColumnName="nAnsweredAcd" />
+                <ScalarProperty Name="nAlertedAcd" ColumnName="nAlertedAcd" />
+                <ScalarProperty Name="nLocalDisconnectAgentAcd" ColumnName="nLocalDisconnectAgentAcd" />
+                <ScalarProperty Name="nLocalDisconnectAgentAlertAcd" ColumnName="nLocalDisconnectAgentAlertAcd" />
+                <ScalarProperty Name="nLocalDisconnectAcd" ColumnName="nLocalDisconnectAcd" />
+                <ScalarProperty Name="nGrabbedAcd" ColumnName="nGrabbedAcd" />
+                <ScalarProperty Name="nAbandonedAcd" ColumnName="nAbandonedAcd" />
+                <ScalarProperty Name="nEnteredAcd" ColumnName="nEnteredAcd" />
+                <ScalarProperty Name="nDuration" ColumnName="nDuration" />
+                <ScalarProperty Name="dIntervalStartUTC" ColumnName="dIntervalStartUTC" />
+                <ScalarProperty Name="dIntervalStart" ColumnName="dIntervalStart" />
+                <ScalarProperty Name="cType" ColumnName="cType" />
+                <ScalarProperty Name="cHKey4" ColumnName="cHKey4" />
+                <ScalarProperty Name="cHKey3" ColumnName="cHKey3" />
+                <ScalarProperty Name="cReportGroup" ColumnName="cReportGroup" />
+                <ScalarProperty Name="cName" ColumnName="cName" />
+                <ScalarProperty Name="StatisticsSet" ColumnName="StatisticsSet" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IWrkgrpQueueStats">
+            <EntityTypeMapping TypeName="CicDBModel.IWrkgrpQueueStats">
+              <MappingFragment StoreEntitySet="IWrkgrpQueueStats">
+                <ScalarProperty Name="SchemaMinorVersion" ColumnName="SchemaMinorVersion" />
+                <ScalarProperty Name="SchemaMajorVersion" ColumnName="SchemaMajorVersion" />
+                <ScalarProperty Name="cServiceLevels" ColumnName="cServiceLevels" />
+                <ScalarProperty Name="nServiceLevel" ColumnName="nServiceLevel" />
+                <ScalarProperty Name="ConfigurationSet" ColumnName="ConfigurationSet" />
+                <ScalarProperty Name="SummDimensionSet" ColumnName="SummDimensionSet" />
+                <ScalarProperty Name="DimensionSet" ColumnName="DimensionSet" />
+                <ScalarProperty Name="I3TimeStampGMT" ColumnName="I3TimeStampGMT" />
+                <ScalarProperty Name="SubSiteId" ColumnName="SubSiteId" />
+                <ScalarProperty Name="SiteId" ColumnName="SiteId" />
+                <ScalarProperty Name="CustomValue6" ColumnName="CustomValue6" />
+                <ScalarProperty Name="CustomValue5" ColumnName="CustomValue5" />
+                <ScalarProperty Name="CustomValue4" ColumnName="CustomValue4" />
+                <ScalarProperty Name="CustomValue3" ColumnName="CustomValue3" />
+                <ScalarProperty Name="CustomValue2" ColumnName="CustomValue2" />
+                <ScalarProperty Name="CustomValue1" ColumnName="CustomValue1" />
+                <ScalarProperty Name="tStatusGroupTraining" ColumnName="tStatusGroupTraining" />
+                <ScalarProperty Name="tStatusGroupBreak" ColumnName="tStatusGroupBreak" />
+                <ScalarProperty Name="tStatusGroupFollowup" ColumnName="tStatusGroupFollowup" />
+                <ScalarProperty Name="tAgentLoggedInDiluted" ColumnName="tAgentLoggedInDiluted" />
+                <ScalarProperty Name="tAgentStatusAcw" ColumnName="tAgentStatusAcw" />
+                <ScalarProperty Name="tAgentStatusDnd" ColumnName="tAgentStatusDnd" />
+                <ScalarProperty Name="tAgentAcdLoggedIn2" ColumnName="tAgentAcdLoggedIn2" />
+                <ScalarProperty Name="tAgentAcdLoggedIn" ColumnName="tAgentAcdLoggedIn" />
+                <ScalarProperty Name="tAgentNotAvailable" ColumnName="tAgentNotAvailable" />
+                <ScalarProperty Name="tAgentDnd" ColumnName="tAgentDnd" />
+                <ScalarProperty Name="tAgentOnNonAcdCall" ColumnName="tAgentOnNonAcdCall" />
+                <ScalarProperty Name="tAgentInAcw" ColumnName="tAgentInAcw" />
+                <ScalarProperty Name="tAgentOnOtherAcdCall" ColumnName="tAgentOnOtherAcdCall" />
+                <ScalarProperty Name="tAgentOnAcdCall" ColumnName="tAgentOnAcdCall" />
+                <ScalarProperty Name="tAgentOtherBusy" ColumnName="tAgentOtherBusy" />
+                <ScalarProperty Name="tAgentTalk" ColumnName="tAgentTalk" />
+                <ScalarProperty Name="tAgentAvailable" ColumnName="tAgentAvailable" />
+                <ScalarProperty Name="tAgentLoggedIn" ColumnName="tAgentLoggedIn" />
+                <ScalarProperty Name="nDisconnectAcd" ColumnName="nDisconnectAcd" />
+                <ScalarProperty Name="nTransferOutAcdCalls" ColumnName="nTransferOutAcdCalls" />
+                <ScalarProperty Name="nTransferWithinAcdCalls" ColumnName="nTransferWithinAcdCalls" />
+                <ScalarProperty Name="nEndHeldAcdCalls" ColumnName="nEndHeldAcdCalls" />
+                <ScalarProperty Name="nEndActiveAcdCalls" ColumnName="nEndActiveAcdCalls" />
+                <ScalarProperty Name="nEndWaitAlertAcdCalls" ColumnName="nEndWaitAlertAcdCalls" />
+                <ScalarProperty Name="nStartHeldAcdCalls" ColumnName="nStartHeldAcdCalls" />
+                <ScalarProperty Name="nStartActiveAcdCalls" ColumnName="nStartActiveAcdCalls" />
+                <ScalarProperty Name="nStartWaitAlertAcdCalls" ColumnName="nStartWaitAlertAcdCalls" />
+                <ScalarProperty Name="tFlowOutAcd" ColumnName="tFlowOutAcd" />
+                <ScalarProperty Name="nFlowOutAcd" ColumnName="nFlowOutAcd" />
+                <ScalarProperty Name="tAlertedAcd" ColumnName="tAlertedAcd" />
+                <ScalarProperty Name="nNotAnsweredAcd" ColumnName="nNotAnsweredAcd" />
+                <ScalarProperty Name="nTransferedAcd" ColumnName="nTransferedAcd" />
+                <ScalarProperty Name="tAcwCalls" ColumnName="tAcwCalls" />
+                <ScalarProperty Name="nAcwCalls" ColumnName="nAcwCalls" />
+                <ScalarProperty Name="tInternToInternAcdCalls" ColumnName="tInternToInternAcdCalls" />
+                <ScalarProperty Name="tInternToInternCalls" ColumnName="tInternToInternCalls" />
+                <ScalarProperty Name="tInternToExternAcdCalls" ColumnName="tInternToExternAcdCalls" />
+                <ScalarProperty Name="tInternToExternCalls" ColumnName="tInternToExternCalls" />
+                <ScalarProperty Name="tExternToInternAcdCalls" ColumnName="tExternToInternAcdCalls" />
+                <ScalarProperty Name="tExternToInternCalls" ColumnName="tExternToInternCalls" />
+                <ScalarProperty Name="nInternToInternAcdCalls" ColumnName="nInternToInternAcdCalls" />
+                <ScalarProperty Name="nInternToInternCalls" ColumnName="nInternToInternCalls" />
+                <ScalarProperty Name="nInternToExternAcdCalls" ColumnName="nInternToExternAcdCalls" />
+                <ScalarProperty Name="nInternToExternCalls" ColumnName="nInternToExternCalls" />
+                <ScalarProperty Name="nExternToInternAcdCalls" ColumnName="nExternToInternAcdCalls" />
+                <ScalarProperty Name="nExternToInternCalls" ColumnName="nExternToInternCalls" />
+                <ScalarProperty Name="tAcwComplete" ColumnName="tAcwComplete" />
+                <ScalarProperty Name="tAcw" ColumnName="tAcw" />
+                <ScalarProperty Name="nAcw" ColumnName="nAcw" />
+                <ScalarProperty Name="nHeldSpanAcd" ColumnName="nHeldSpanAcd" />
+                <ScalarProperty Name="tSuspendedAcd" ColumnName="tSuspendedAcd" />
+                <ScalarProperty Name="nSuspendedAcd" ColumnName="nSuspendedAcd" />
+                <ScalarProperty Name="tHoldAcd" ColumnName="tHoldAcd" />
+                <ScalarProperty Name="nHoldAcd" ColumnName="nHoldAcd" />
+                <ScalarProperty Name="tTalkCompleteAcd" ColumnName="tTalkCompleteAcd" />
+                <ScalarProperty Name="tTalkAcd" ColumnName="tTalkAcd" />
+                <ScalarProperty Name="tAbandonedAcd" ColumnName="tAbandonedAcd" />
+                <ScalarProperty Name="mtAnsweredAcd" ColumnName="mtAnsweredAcd" />
+                <ScalarProperty Name="tAnsweredAcd" ColumnName="tAnsweredAcd" />
+                <ScalarProperty Name="tGrabbedAcd" ColumnName="tGrabbedAcd" />
+                <ScalarProperty Name="nAbandonAcdSvcLvl6" ColumnName="nAbandonAcdSvcLvl6" />
+                <ScalarProperty Name="nAbandonAcdSvcLvl5" ColumnName="nAbandonAcdSvcLvl5" />
+                <ScalarProperty Name="nAbandonAcdSvcLvl4" ColumnName="nAbandonAcdSvcLvl4" />
+                <ScalarProperty Name="nAbandonAcdSvcLvl3" ColumnName="nAbandonAcdSvcLvl3" />
+                <ScalarProperty Name="nAbandonAcdSvcLvl2" ColumnName="nAbandonAcdSvcLvl2" />
+                <ScalarProperty Name="nAbandonAcdSvcLvl1" ColumnName="nAbandonAcdSvcLvl1" />
+                <ScalarProperty Name="nAbandonAcdSvcLvl" ColumnName="nAbandonAcdSvcLvl" />
+                <ScalarProperty Name="nAnsweredAcdSvcLvl6" ColumnName="nAnsweredAcdSvcLvl6" />
+                <ScalarProperty Name="nAnsweredAcdSvcLvl5" ColumnName="nAnsweredAcdSvcLvl5" />
+                <ScalarProperty Name="nAnsweredAcdSvcLvl4" ColumnName="nAnsweredAcdSvcLvl4" />
+                <ScalarProperty Name="nAnsweredAcdSvcLvl3" ColumnName="nAnsweredAcdSvcLvl3" />
+                <ScalarProperty Name="nAnsweredAcdSvcLvl2" ColumnName="nAnsweredAcdSvcLvl2" />
+                <ScalarProperty Name="nAnsweredAcdSvcLvl1" ColumnName="nAnsweredAcdSvcLvl1" />
+                <ScalarProperty Name="nAnsweredAcdSvcLvl" ColumnName="nAnsweredAcdSvcLvl" />
+                <ScalarProperty Name="nAcdSvcLvl" ColumnName="nAcdSvcLvl" />
+                <ScalarProperty Name="nAnswered" ColumnName="nAnswered" />
+                <ScalarProperty Name="nAnsweredAcd" ColumnName="nAnsweredAcd" />
+                <ScalarProperty Name="nAlertedAcd" ColumnName="nAlertedAcd" />
+                <ScalarProperty Name="nLocalDisconnectAgentAcd" ColumnName="nLocalDisconnectAgentAcd" />
+                <ScalarProperty Name="nLocalDisconnectAgentAlertAcd" ColumnName="nLocalDisconnectAgentAlertAcd" />
+                <ScalarProperty Name="nLocalDisconnectAcd" ColumnName="nLocalDisconnectAcd" />
+                <ScalarProperty Name="nGrabbedAcd" ColumnName="nGrabbedAcd" />
+                <ScalarProperty Name="nAbandonedAcd" ColumnName="nAbandonedAcd" />
+                <ScalarProperty Name="nEnteredAcd" ColumnName="nEnteredAcd" />
+                <ScalarProperty Name="nDuration" ColumnName="nDuration" />
+                <ScalarProperty Name="dIntervalStartUTC" ColumnName="dIntervalStartUTC" />
+                <ScalarProperty Name="dIntervalStart" ColumnName="dIntervalStart" />
+                <ScalarProperty Name="cType" ColumnName="cType" />
+                <ScalarProperty Name="cHKey4" ColumnName="cHKey4" />
+                <ScalarProperty Name="cHKey3" ColumnName="cHKey3" />
+                <ScalarProperty Name="cReportGroup" ColumnName="cReportGroup" />
+                <ScalarProperty Name="cName" ColumnName="cName" />
+                <ScalarProperty Name="StatisticsSet" ColumnName="StatisticsSet" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -279,9 +1703,10 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="True" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->

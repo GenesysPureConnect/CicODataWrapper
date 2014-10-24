@@ -90,6 +90,15 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AgentStat.cs">
+      <DependentUpon>CicModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CallHistory.cs">
+      <DependentUpon>CicModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CampaignStat.cs">
+      <DependentUpon>CicModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="CicDataService.svc.cs">
       <DependentUpon>CicDataService.svc</DependentUpon>
     </Compile>
@@ -108,10 +117,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CicModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="IAgentQueueStats.cs">
+      <DependentUpon>CicModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="InteractionSegmentDetail.cs">
       <DependentUpon>CicModel.tt</DependentUpon>
     </Compile>
     <Compile Include="InteractionSummary.cs">
+      <DependentUpon>CicModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IWrkgrpQueueStats.cs">
       <DependentUpon>CicModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -160,13 +175,13 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>False</UseIIS>
+          <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>52219</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:52109/</IISUrl>
+          <IISUrl>http://localhost:52219/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
-          <UseCustomServer>True</UseCustomServer>
+          <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>http://sim4integration</CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>

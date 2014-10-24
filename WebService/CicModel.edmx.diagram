@@ -7,6 +7,11 @@
       <Diagram DiagramId="3ac19b4ffc424a6ab9341c6bb7febbc1" Name="Diagram1">
         <EntityTypeShape EntityType="CicDBModel.InteractionSegmentDetail" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="CicDBModel.InteractionSummary" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CicDBModel.AgentStat" Width="1.5" PointX="5.375" PointY="0.75" />
+        <EntityTypeShape EntityType="CicDBModel.CallHistory" Width="1.5" PointX="5.375" PointY="4.75" />
+        <EntityTypeShape EntityType="CicDBModel.CampaignStat" Width="1.5" PointX="7.375" PointY="0.75" />
+        <EntityTypeShape EntityType="CicDBModel.IAgentQueueStats" Width="1.5" PointX="7.375" PointY="6.75" />
+        <EntityTypeShape EntityType="CicDBModel.IWrkgrpQueueStats" Width="1.5" PointX="9.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
